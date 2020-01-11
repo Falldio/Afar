@@ -9,7 +9,9 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 
 
-import java.util.List;//数组
+import java.util.ArrayList;//数组
+
+import com.amap.api.maps.model.Marker;
 import com.newsmap.afar.server.news;
 import com.newsmap.afar.server.newsLinker;
 
@@ -18,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     private AMap aMap;//高德地图对象
     private MapView mMapView;//地图视图
-    private newsLinker connection = null;//连接数据库
-    private List<news> newsEvents;//新闻事件
+    private newsLinker connection = new newsLinker();//连接数据库
+    private ArrayList<news> newsEvents=new ArrayList<>();//新闻事件
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
         //初始化地图与数据
         initMapView(savedInstanceState);
         initData();
+
+
     }
+
 
     //初始化地图View
     private void initMapView(Bundle savedInstanceState){
@@ -42,11 +47,26 @@ public class MainActivity extends AppCompatActivity {
 
     //初始化新闻数据
     private void initData(){
-        if(!connection.connectToServer()) {
-            Log.e("TAG", "initData: 数据库连接失败" );
-        }
-        if(!connection.getNewsEvents(newsEvents)){
-            Log.e("TAG","initData: 数据库为空");
-        }
+        new Thread(){
+            public void run(){
+                if(!connection.connectToServer()) {
+                    Log.e("TAG", "initData: 数据库连接失败" );
+                    return;
+                }
+                if(!connection.getNewsEvents(newsEvents)){
+                    Log.e("TAG","initData: 数据库为空");
+                }
+                if(newsEvents.size()!=0) {
+                    for (news event : newsEvents) {
+                        aMap.addMarker(event.getMarkerOptions());
+                        aMap.addText(event.getTextOptions());
+                    }
+                }
+                else{
+                    Log.e("TAG", "onCreate: newsEvents为空");
+                }
+            }
+        }.start();
+
     }
 }

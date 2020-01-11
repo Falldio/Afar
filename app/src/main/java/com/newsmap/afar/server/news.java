@@ -1,11 +1,14 @@
 package com.newsmap.afar.server;
 
 import com.amap.api.maps.model.BitmapDescriptor;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.TextOptions;
 
 import java.util.Date;
+
+import com.newsmap.afar.R;
 
 //将数据库中获取的新闻数据存放到news类中
 public class news {
@@ -21,16 +24,15 @@ public class news {
     private MarkerOptions markerOptions;
     private TextOptions textOptions;
 
-    public news(){
+     news(){
         markerOptions=new MarkerOptions();
         textOptions=new TextOptions();
         markerOptions.infoWindowEnable(false);
-        markerOptions.position(location);
         markerOptions.title(title);
-        textOptions.position(location);
-        textOptions.text(title);
         textOptions.backgroundColor(0);
         textOptions.fontSize(50);
+        icon= BitmapDescriptorFactory.fromResource(R.drawable.location);
+        markerOptions.icon(icon);
     }
 
     public MarkerOptions getMarkerOptions(){
@@ -41,15 +43,19 @@ public class news {
         return textOptions;
     }
 
-    public void setLocation(LatLng location) {
+    void setLocation(LatLng location) {
         this.location = location;
+        markerOptions.position(location);
+        textOptions.position(location);
     }
 
-    public void setTitle(String title){
+    void setTitle(String title){
         this.title=title;
+        markerOptions.title(title);
+        textOptions.text(title);
     }
 
-    public void setContent(String content){
+    void setContent(String content){
         this.content=content;
     }
 
