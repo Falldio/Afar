@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         if(!connection.connectToServer()) {
             Log.e("TAG", "initData: 数据库连接失败" );
         }
-
-
+        if(!connection.getNewsEvents(newsEvents)){
+            Log.e("TAG","initData: 数据库为空");
+        }
     }
 }

@@ -13,7 +13,7 @@ public class news {
     private LatLng location;//位置
     private int category;//分类
     private String content;//文章
-    private String uri;//网址
+    private String url;//网址
     private String source;//来源
     private String title;//标题
     private Date date;//时间
@@ -24,6 +24,13 @@ public class news {
     public news(){
         markerOptions=new MarkerOptions();
         textOptions=new TextOptions();
+        markerOptions.infoWindowEnable(false);
+        markerOptions.position(location);
+        markerOptions.title(title);
+        textOptions.position(location);
+        textOptions.text(title);
+        textOptions.backgroundColor(0);
+        textOptions.fontSize(50);
     }
 
     public MarkerOptions getMarkerOptions(){
@@ -44,5 +51,9 @@ public class news {
 
     public void setContent(String content){
         this.content=content;
+    }
+
+    public void setUrl(String url){
+        this.url=url;
     }
 }
