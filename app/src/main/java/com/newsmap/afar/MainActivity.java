@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -11,6 +12,7 @@ import com.amap.api.maps.MapView;
 
 import java.util.ArrayList;//数组
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.newsmap.afar.server.news;
 import com.newsmap.afar.server.newsLinker;
 
@@ -21,17 +23,19 @@ public class MainActivity extends AppCompatActivity {
     private MapView mMapView;//地图视图
     private newsLinker connection = new newsLinker();//连接数据库
     private ArrayList<news> newsEvents=new ArrayList<>();//新闻事件
+    private View newsContent;
+    private BottomSheetBehavior<View> bottomSheetBehavior;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_afar);
+        setContentView(R.layout.activity_main);
         //初始化地图与数据
         initMapView(savedInstanceState);
         initData();
-
-
+        //初始化视图
+        initView();
     }
 
 
@@ -67,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }.start();
+    }
 
+    //初始化视图
+    private void initView(){
+        //底部弹出BottomSheet,显示新闻内容
+        newsContent=findViewById(R.id.newsContent);
+        bottomSheetBehavior=BottomSheetBehavior.from(newsContent);
+        newsContent.setVisibility(View.GONE);
     }
 }
