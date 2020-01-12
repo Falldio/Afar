@@ -11,7 +11,6 @@ import com.amap.api.maps.MapView;
 
 import java.util.ArrayList;//数组
 
-import com.amap.api.maps.model.Marker;
 import com.newsmap.afar.server.news;
 import com.newsmap.afar.server.newsLinker;
 
@@ -22,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private MapView mMapView;//地图视图
     private newsLinker connection = new newsLinker();//连接数据库
     private ArrayList<news> newsEvents=new ArrayList<>();//新闻事件
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
