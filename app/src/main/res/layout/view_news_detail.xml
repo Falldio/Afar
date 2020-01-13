@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:visibility="visible"
     android:id="@+id/newsDetail"
-    android:background="@color/white"
+    android:background="@drawable/rounded_top_background"
     app:behavior_hideable="true"
     app:behavior_peekHeight="80dp"
     app:layout_behavior="@string/bottom_sheet_behavior">
@@ -19,10 +19,12 @@
 
         <TextView
             android:id="@+id/newsTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/news_title_height"
+            android:background="@drawable/rounded_card"
             android:text="@string/newsTitle"
             android:textColor="@color/newsTitle"
+            android:textSize="@dimen/news_title_size"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,9 +33,15 @@
             android:id="@+id/newsContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_card"
             android:text="@string/newsContent"
             android:textColor="@color/newsContent"
+            android:textSize="@dimen/news_content_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/newsTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

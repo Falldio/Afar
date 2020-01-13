@@ -7,5 +7,5 @@
     <color name="transparent">#00000000</color>
     <color name="newsTitle">#070707</color>
     <color name="newsContent">#292929</color>
-
+    <color name="grey">#ebe6e6</color>
 </resources>
