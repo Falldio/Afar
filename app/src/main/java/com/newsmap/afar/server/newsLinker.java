@@ -46,24 +46,11 @@ public class newsLinker{
             Log.e("TAG", "getNewsEvents: 尚未连接到数据库");
             return false;
         }
-//        String queryCount="SELECT COUNT(*) FROM news";
+
         Statement statement;
         ResultSet result;
         String queryNews = "SELECT * FROM news";
-//        String queryTitles = "SELECT * FROM titles";
 
-//        int newsCount;
-//        try {
-//            statement = connection.createStatement();
-//            result = statement.executeQuery(queryCount);
-//            if (result != null && result.first()) {
-//                newsCount = result.getInt(1);
-//            }
-//            else
-//            {
-//                Log.e("TAG", "getNewsEvents: 数据库内无新闻数据");
-//                return false;
-//            }
             try{
                 statement=connection.createStatement();
                 result=statement.executeQuery(queryNews);

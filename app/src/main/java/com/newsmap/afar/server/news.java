@@ -1,5 +1,7 @@
 package com.newsmap.afar.server;
 
+import android.util.Log;
+
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
@@ -12,7 +14,8 @@ import com.newsmap.afar.R;
 
 //将数据库中获取的新闻数据存放到news类中
 public class news {
-    private String id;
+    private String markerId;//对应marker的索引值
+    private String textId;//对应text的索引值
     private LatLng location;//位置
     private int category;//分类
     private String content;//文章
@@ -36,11 +39,37 @@ public class news {
     }
 
     public MarkerOptions getMarkerOptions(){
-        return markerOptions;
+         return markerOptions;
     }
 
     public TextOptions getTextOptions() {
         return textOptions;
+    }
+
+    public String getMarkerId(){
+         return markerId;
+    }
+
+    public String getTextId(){
+         return textId;
+    }
+
+    public String getTitle(){
+         if(title!=null)
+            return title;
+         else{
+             Log.e("TAG", "getTitle: 新闻标题为空");
+             return null;
+         }
+    }
+
+    public String getContent(){
+        if(content!=null)
+            return content;
+        else{
+            Log.e("TAG", "getContent: 新闻内容为空");
+            return null;
+        }
     }
 
     void setLocation(LatLng location) {
@@ -59,7 +88,16 @@ public class news {
         this.content=content;
     }
 
-    public void setUrl(String url){
+
+    void setUrl(String url){
         this.url=url;
+    }
+
+    public void setMarkerId(String id){
+         this.markerId=id;
+    }
+
+    public void setTextId(String id){
+         this.textId=id;
     }
 }
