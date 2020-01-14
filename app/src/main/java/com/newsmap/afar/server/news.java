@@ -8,21 +8,21 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.TextOptions;
 
-import java.util.Date;
-
 import com.newsmap.afar.R;
+
+import java.util.Date;
 
 //将数据库中获取的新闻数据存放到news类中
 public class news {
     private String markerId;//对应marker的索引值
     private String textId;//对应text的索引值
     private LatLng location;//位置
-    private int category;//分类
+    private String category;//分类
     private String content;//文章
     private String url;//网址
     private String source;//来源
     private String title;//标题
-    private Date date;//时间
+    private Date date;//日期
     private BitmapDescriptor icon;
     private MarkerOptions markerOptions;
     private TextOptions textOptions;
@@ -38,6 +38,14 @@ public class news {
         markerOptions.icon(icon);
     }
 
+    public String getCategory(){
+         if(category!=null)
+             return category;
+         else{
+             Log.e("TAG", "getCategory: 分类为空");
+             return null;
+         }
+    }
     public MarkerOptions getMarkerOptions(){
          return markerOptions;
     }
@@ -72,6 +80,10 @@ public class news {
         }
     }
 
+    void setCategory(String category){
+         this.category=category;
+    }
+
     void setLocation(LatLng location) {
         this.location = location;
         markerOptions.position(location);
@@ -93,6 +105,15 @@ public class news {
         this.url=url;
     }
 
+    String getUrl(String url){
+        if(url!=null)
+            return url;
+        else{
+            Log.e("TAG", "getUrl: Url为空");
+            return null;
+        }
+    }
+
     public void setMarkerId(String id){
          this.markerId=id;
     }
@@ -100,4 +121,32 @@ public class news {
     public void setTextId(String id){
          this.textId=id;
     }
+
+    void setDate(Date date){
+         this.date=date;
+    }
+
+    Date getDate(){
+         if(date!=null)
+             return date;
+         else{
+             Log.e("TAG", "getDate: 日期为空");
+             return null;
+         }
+    }
+
+    void setSource(String source){
+         this.source=source;
+    }
+
+    String getSource(){
+         if(source!=null)
+             return source;
+         else{
+             Log.e("TAG", "getSource: 来源为空");
+             return null;
+         }
+    }
+
+
 }

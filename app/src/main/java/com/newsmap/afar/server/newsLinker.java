@@ -62,7 +62,10 @@ public class newsLinker{
                     event.setLocation(new LatLng(lat, lon));
                     event.setTitle(result.getNString("title"));
                     event.setContent(result.getString("content"));
-    //                event.setUrl(result2.getString("url"));
+                    event.setUrl(result.getString("url"));
+                    event.setDate(result.getDate("date"));
+                    event.setSource(result.getString("source"));
+                    event.setCategory(result.getString("category"));
                     events.add(event);
             }
             result.close();
