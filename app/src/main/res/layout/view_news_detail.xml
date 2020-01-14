@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,7 +10,7 @@
     android:id="@+id/newsDetail"
     android:background="@drawable/rounded_top_background"
     app:behavior_hideable="true"
-    app:behavior_peekHeight="80dp"
+    app:behavior_peekHeight="@dimen/news_title_height"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
 
@@ -17,33 +18,62 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/newsTitle"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/newsTitleCard"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/news_title_height"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
             android:background="@drawable/rounded_card"
-            android:text="@string/newsTitle"
-            android:textColor="@color/newsTitle"
-            android:textSize="@dimen/news_title_size"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/newsContent"
+            <TextView
+                android:id="@+id/newsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginRight="@dimen/text_margin"
+                android:text="@string/newsTitle"
+                android:textColor="@color/newsTitle"
+                android:textSize="@dimen/news_title_size"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/newsContentCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/card_margin"
             android:background="@drawable/rounded_card"
-            android:text="@string/newsContent"
-            android:textColor="@color/newsContent"
-            android:textSize="@dimen/news_content_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newsTitle" />
+            app:layout_constraintTop_toBottomOf="@id/newsTitleCard">
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/readPage">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/newsContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/newsContent"
+                        android:textColor="@color/newsContent"
+                        android:textSize="@dimen/news_content_size"
+                        android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_marginRight="@dimen/text_margin"
+                        android:layout_marginBottom="100dp"/>
+                </LinearLayout>
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--内容卡片-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

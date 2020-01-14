@@ -1,11 +1,14 @@
 package com.newsmap.afar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.text.Html;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -99,13 +102,17 @@ public class MainActivity extends AppCompatActivity {
 
                 TextView newsTitle=newsDetail.findViewById(R.id.newsTitle);
                 TextView newsContent=newsDetail.findViewById(R.id.newsContent);
-
+                ScrollView readPage=newsDetail.findViewById(R.id.readPage);
                 for(int i=0;i<newsEvents.size();i++){
                     if(newsEvents.get(i).getMarkerId()==marker.getId()){
                         newsTitle.setText(newsEvents.get(i).getTitle());
-                        newsContent.setText(newsEvents.get(i).getContent());
+                        newsContent.setText(Html.fromHtml(newsEvents.get(i).getContent()));
+                        break;
                     }
                 }
+
+                bottomSheetBehavior.setPeekHeight(newsTitle.getHeight());
+                readPage.scrollTo(0,0);
                 return true;
             }
         });
@@ -117,6 +124,23 @@ public class MainActivity extends AppCompatActivity {
                 if(newsDetail.isShown()){
                     newsDetail.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        //设置详情页回调
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View view, int i) {
+                if (i==BottomSheetBehavior.STATE_COLLAPSED){
+                    //重复打开同一新闻之前调整ScrollView
+                    ScrollView readPage=newsDetail.findViewById(R.id.readPage);
+                    readPage.scrollTo(0,0);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View view, float v) {
+
             }
         });
     }
