@@ -2,4 +2,5 @@
     <string name="app_name">远方</string>
     <string name="newsTitle">示例标题</string>
     <string name="newsContent">示例内容</string>
+    <string name="searchHint">我从远方赶来，恰好你们也在。</string>
 </resources>

@@ -5,6 +5,6 @@
         android:bottomRightRadius="@dimen/rounded_rec_angle"
         android:topLeftRadius="0dp"
         android:topRightRadius="0dp" />
-    <stroke android:color="#F4F4F4" android:width="1dp"/>
-    <solid android:color="@color/grey" />
+    <stroke android:color="@color/white" android:width="1dp"/>
+    <solid android:color="@color/white" />
 </shape>

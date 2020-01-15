@@ -3,8 +3,8 @@
     <corners
         android:bottomLeftRadius="@dimen/rounded_rec_angle"
         android:bottomRightRadius="@dimen/rounded_rec_angle"
-        android:topLeftRadius="@dimen/rounded_rec_angle"
-        android:topRightRadius="@dimen/rounded_rec_angle" />
+        android:topLeftRadius="0dp"
+        android:topRightRadius="0dp" />
     <stroke android:color="@color/white" android:width="1dp"/>
     <solid android:color="@color/white" />
 </shape>

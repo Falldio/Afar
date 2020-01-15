@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/white">
+    android:background="@color/grey">
 
     <!--地图视图-->
 
@@ -13,15 +13,15 @@
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/grey">
 
     </com.amap.api.maps.MapView>
 
+    <!--UiContainer类-->
     <com.newsmap.afar.view.viewUiContainer
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <!--UiContainer类-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

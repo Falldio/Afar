@@ -2,7 +2,9 @@ package com.newsmap.afar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,8 +31,14 @@ public class MainActivity extends AppCompatActivity {
     private MapView mMapView;//地图视图
     private newsLinker connection = new newsLinker();//连接数据库
     private ArrayList<news> newsEvents=new ArrayList<>();//新闻事件
-    private View newsDetail;
+    private View newsDetail;//底部详情页面
+    private View searchBar;//顶部搜索栏
     private BottomSheetBehavior<View> bottomSheetBehavior;
+    private TextView newsTitle;
+    private TextView newsContent;
+    private ConstraintLayout newsTitleCard;
+    private ScrollView readPage;
+
 
 
     @Override
@@ -90,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
         newsDetail=findViewById(R.id.newsDetail);
         bottomSheetBehavior=BottomSheetBehavior.from(newsDetail);
         newsDetail.setVisibility(View.GONE);
+        newsTitle=newsDetail.findViewById(R.id.newsTitle);
+        newsContent=newsDetail.findViewById(R.id.newsContent);
+        newsTitleCard=newsDetail.findViewById(R.id.newsTitleCard);
+        readPage=newsDetail.findViewById(R.id.readPage);
+        searchBar=findViewById(R.id.searchBar);
     }
 
     //设置事件监听
@@ -100,18 +113,15 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMarkerClick(Marker marker) {
                 newsDetail.setVisibility(View.VISIBLE);
 
-                TextView newsTitle=newsDetail.findViewById(R.id.newsTitle);
-                TextView newsContent=newsDetail.findViewById(R.id.newsContent);
-                ScrollView readPage=newsDetail.findViewById(R.id.readPage);
                 for(int i=0;i<newsEvents.size();i++){
-                    if(newsEvents.get(i).getMarkerId()==marker.getId()){
+                    if(newsEvents.get(i).getMarkerId().equals(marker.getId())){
                         newsTitle.setText(newsEvents.get(i).getTitle());
                         newsContent.setText(Html.fromHtml(newsEvents.get(i).getContent()));
                         break;
                     }
                 }
 
-                bottomSheetBehavior.setPeekHeight(newsTitle.getHeight());
+                bottomSheetBehavior.setPeekHeight(newsTitleCard.getHeight());
                 readPage.scrollTo(0,0);
                 return true;
             }
@@ -135,11 +145,33 @@ public class MainActivity extends AppCompatActivity {
                     //重复打开同一新闻之前调整ScrollView
                     ScrollView readPage=newsDetail.findViewById(R.id.readPage);
                     readPage.scrollTo(0,0);
+                    searchBar.setVisibility(View.VISIBLE);
+                }
+                else if(i==BottomSheetBehavior.STATE_EXPANDED){
+                    Drawable background=getDrawable(R.drawable.squared_bottom_sheet);
+                    newsDetail.setBackground(background);
+                    background=getDrawable(R.drawable.bottom_rounded_card);
+                    newsTitleCard.setBackground(background);
+                }
+                else if(i==BottomSheetBehavior.STATE_DRAGGING){
+                    Drawable background=getDrawable(R.drawable.rounded_bottom_sheet);
+                    newsDetail.setBackground(background);
+                    background=getDrawable(R.drawable.rounded_card);
+                    newsTitleCard.setBackground(background);
+                    searchBar.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onSlide(@NonNull View view, float v) {
+
+            }
+        });
+
+        //设置搜索页回调
+        searchBar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
 
             }
         });
