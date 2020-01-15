@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".SearchActivity"
+    android:background="@color/grey">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/searchBarCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/search_bar"
-        android:padding="@dimen/card_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingStart="@dimen/search_bar_margin"
+        android:paddingEnd="@dimen/search_bar_margin"
+        android:paddingTop="@dimen/card_margin"
+        android:paddingBottom="@dimen/card_margin"
+        android:background="@drawable/search_bar">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/text_edit"
-            app:hintAnimationEnabled="false"
-            app:hintEnabled="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:paddingStart="@dimen/search_bar_margin"
+            android:paddingEnd="@dimen/search_bar_margin"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -32,9 +34,8 @@
                 android:paddingStart="@dimen/text_margin"
                 android:paddingEnd="@dimen/text_margin"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="normal"
                 android:textCursorDrawable="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

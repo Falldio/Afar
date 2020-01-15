@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -169,10 +170,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //设置搜索页回调
+        final Intent intent=new Intent(this,SearchActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putParcelableArrayList("newsEvents",newsEvents);
+        intent.putExtras(bundle);
         searchBar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
+                //切换到SearchActivity
+                startActivity(intent);
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.newsmap.afar.server;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.amap.api.maps.model.BitmapDescriptor;
@@ -13,7 +15,7 @@ import com.newsmap.afar.R;
 import java.util.Date;
 
 //将数据库中获取的新闻数据存放到news类中
-public class news {
+public class news implements Parcelable {
     private String markerId;//对应marker的索引值
     private String textId;//对应text的索引值
     private LatLng location;//位置
@@ -22,7 +24,7 @@ public class news {
     private String url;//网址
     private String source;//来源
     private String title;//标题
-    private Date date;//日期
+    private String date;//日期
     private BitmapDescriptor icon;
     private MarkerOptions markerOptions;
     private TextOptions textOptions;
@@ -122,11 +124,11 @@ public class news {
          this.textId=id;
     }
 
-    void setDate(Date date){
+    void setDate(String date){
          this.date=date;
     }
 
-    Date getDate(){
+    String getDate(){
          if(date!=null)
              return date;
          else{
@@ -148,5 +150,43 @@ public class news {
          }
     }
 
+    public static final Parcelable.Creator<news>CREATOR
+            =new Parcelable.Creator<news>(){
+         public news createFromParcel(Parcel in){
+             return new news(in);
+         }
 
+         public news[] newArray(int size){
+             return new news[size];
+         }
+    };
+
+    @Override
+    public int describeContents(){
+         return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out,int Flags){
+         out.writeString(markerId);
+         out.writeString(textId);
+         out.writeString(category);
+         out.writeString(content);
+         out.writeString(url);
+         out.writeString(source);
+         out.writeString(title);
+         out.writeString(date);
+         //其余数据无需传入搜索页
+    }
+
+    private news(Parcel in){
+         markerId=in.readString();
+         textId=in.readString();
+         category=in.readString();
+         content=in.readString();
+         url=in.readString();
+         source=in.readString();
+         title=in.readString();
+         date=in.readString();
+    }
 }

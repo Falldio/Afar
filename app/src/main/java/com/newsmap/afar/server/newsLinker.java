@@ -63,7 +63,7 @@ public class newsLinker{
                     event.setTitle(result.getNString("title"));
                     event.setContent(result.getString("content"));
                     event.setUrl(result.getString("url"));
-                    event.setDate(result.getDate("date"));
+                    event.setDate(result.getString("date"));
                     event.setSource(result.getString("source"));
                     event.setCategory(result.getString("category"));
                     events.add(event);

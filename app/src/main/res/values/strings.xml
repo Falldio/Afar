@@ -3,4 +3,8 @@
     <string name="newsTitle">示例标题</string>
     <string name="newsContent">示例内容</string>
     <string name="searchHint">我从远方赶来，恰好你们也在。</string>
+
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
