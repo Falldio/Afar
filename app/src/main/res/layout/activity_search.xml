@@ -27,6 +27,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
@@ -37,5 +38,14 @@
                 android:textCursorDrawable="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchResultList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/card_margin"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchBarCard"
+        tools:listitem="@layout/fragment_searchednews_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

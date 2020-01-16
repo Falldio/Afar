@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import com.newsmap.afar.server.news;
+import com.newsmap.afar.data.news;
 
 //执行连接远程数据库获取新闻信息的任务
 public class newsLinker{

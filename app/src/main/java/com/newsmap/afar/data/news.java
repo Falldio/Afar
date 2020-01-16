@@ -1,4 +1,4 @@
-package com.newsmap.afar.server;
+package com.newsmap.afar.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,8 +11,6 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.TextOptions;
 
 import com.newsmap.afar.R;
-
-import java.util.Date;
 
 //将数据库中获取的新闻数据存放到news类中
 public class news implements Parcelable {
@@ -29,7 +27,7 @@ public class news implements Parcelable {
     private MarkerOptions markerOptions;
     private TextOptions textOptions;
 
-     news(){
+     public news(){
         markerOptions=new MarkerOptions();
         textOptions=new TextOptions();
         markerOptions.infoWindowEnable(false);
@@ -82,32 +80,32 @@ public class news implements Parcelable {
         }
     }
 
-    void setCategory(String category){
+    public void setCategory(String category){
          this.category=category;
     }
 
-    void setLocation(LatLng location) {
+    public void setLocation(LatLng location) {
         this.location = location;
         markerOptions.position(location);
         textOptions.position(location);
     }
 
-    void setTitle(String title){
+    public void setTitle(String title){
         this.title=title;
         markerOptions.title(title);
         textOptions.text(title);
     }
 
-    void setContent(String content){
+    public void setContent(String content){
         this.content=content;
     }
 
 
-    void setUrl(String url){
+    public void setUrl(String url){
         this.url=url;
     }
 
-    String getUrl(String url){
+    public String getUrl(String url){
         if(url!=null)
             return url;
         else{
@@ -124,11 +122,11 @@ public class news implements Parcelable {
          this.textId=id;
     }
 
-    void setDate(String date){
+    public void setDate(String date){
          this.date=date;
     }
 
-    String getDate(){
+    public String getDate(){
          if(date!=null)
              return date;
          else{
@@ -137,11 +135,11 @@ public class news implements Parcelable {
          }
     }
 
-    void setSource(String source){
+    public void setSource(String source){
          this.source=source;
     }
 
-    String getSource(){
+    public String getSource(){
          if(source!=null)
              return source;
          else{

@@ -22,7 +22,7 @@ import java.util.ArrayList;//数组
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.Text;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.newsmap.afar.server.news;
+import com.newsmap.afar.data.news;
 import com.newsmap.afar.server.newsLinker;
 
 //主界面
