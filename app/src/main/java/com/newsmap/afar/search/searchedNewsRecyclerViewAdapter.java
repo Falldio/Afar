@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 
 import com.newsmap.afar.R;
 import com.newsmap.afar.search.searchedNewsFragment.OnListFragmentInteractionListener;
@@ -28,17 +29,21 @@ import java.util.ArrayList;
         mListener = listener;
     }
 
+    //创建新的View
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_searchednews, parent, false);
+                .inflate(R.layout.fragment_searched_news, parent, false);
         return new ViewHolder(view);
     }
 
+    //改变View内容，将ViewHolder绑定到数据上
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getTitle());
+        holder.mTitleView.setText(mValues.get(position).getTitle());
+        holder.mSourceView.setText(mValues.get(position).getSource());
+        holder.mDateView.setText(mValues.get(position).getDate());
         holder.mContentView.setText(mValues.get(position).getContent());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -60,16 +65,20 @@ import java.util.ArrayList;
 
     //每一个Item对应的子View
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public news mItem;
+        final View mView;
+        final TextView mTitleView;
+        final TextView mContentView;
+        final TextView mSourceView;
+        final TextView mDateView;
+        news mItem;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.item_number);
+            mTitleView = view.findViewById(R.id.title);
             mContentView = view.findViewById(R.id.content);
+            mSourceView=view.findViewById(R.id.source);
+            mDateView=view.findViewById(R.id.date);
         }
 
         @Override

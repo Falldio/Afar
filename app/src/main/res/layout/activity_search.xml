@@ -18,25 +18,19 @@
         android:paddingBottom="@dimen/card_margin"
         android:background="@drawable/search_bar">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
+            android:id="@+id/searchBarInput"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/text_edit"
-            android:paddingStart="@dimen/search_bar_margin"
-            android:paddingEnd="@dimen/search_bar_margin"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/searchInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:hint="@string/searchHint"
-                android:paddingStart="@dimen/text_margin"
-                android:paddingEnd="@dimen/text_margin"
-                android:textColor="@color/white"
-                android:textCursorDrawable="@color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/searchHint"
+            android:hint="@string/searchHint"
+            android:textSize="25sp"
+            android:inputType="text"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:background="@color/grey"
+            android:imeOptions="actionSearch"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -46,6 +40,6 @@
         android:layout_marginTop="@dimen/card_margin"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchBarCard"
-        tools:listitem="@layout/fragment_searchednews_list" />
+        tools:listitem="@layout/fragment_searched_news_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

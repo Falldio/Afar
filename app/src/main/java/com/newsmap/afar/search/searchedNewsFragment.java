@@ -2,7 +2,7 @@ package com.newsmap.afar.search;
 
 import android.content.Context;
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -56,9 +56,9 @@ public class searchedNewsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_searchednews_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_searched_news_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -76,7 +76,7 @@ public class searchedNewsFragment extends Fragment {
 
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
