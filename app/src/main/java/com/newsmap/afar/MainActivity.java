@@ -17,8 +17,14 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;//数组
 
+import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.CustomMapStyleOptions;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.Text;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -39,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView newsContent;
     private ConstraintLayout newsTitleCard;
     private ScrollView readPage;
+    private CustomMapStyleOptions opt = new CustomMapStyleOptions();//自定义地图样式
+
 
 
 
@@ -61,6 +69,26 @@ public class MainActivity extends AppCompatActivity {
     private void initMapView(Bundle savedInstanceState){
         mMapView=findViewById(R.id.map);
         aMap=mMapView.getMap();
+        String dir = "/storage/emulated/0/Android/data/com.newsmap.afar/data/custom";
+        copyCustomData(dir, "style.data");
+        copyCustomData(dir, "style_extra.data");
+        //文件路径
+        File file = new File(dir, "style.data");
+        if (file.exists()) {
+            opt.setStyleDataPath(dir + "/style.data");
+            opt.setStyleExtraPath(dir + "/style_extra.data");
+            aMap.setCustomMapStyle((opt));
+            opt.setEnable(true);
+
+        } else {
+            Log.e("TAG", "自定义样式文件不存在");
+        }
+
+        UiSettings uiSettings=aMap.getUiSettings();
+        uiSettings.setZoomControlsEnabled(false);
+        uiSettings.setRotateGesturesEnabled(false);
+        uiSettings.setTiltGesturesEnabled(false);
+
 
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMapView.onCreate(savedInstanceState);
@@ -182,4 +210,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void copyCustomData(String fileDirPath, String fileName) {
+        String filePath = fileDirPath + "/" + fileName;// 文件路径
+        try {
+            File dir = new File(fileDirPath);// 目录路径
+            if (!dir.exists()) {// 如果不存在，则创建路径名
+                if(!dir.mkdirs()) {
+                    Log.e("TAG", "copyCustomData: 目录创建失败");
+                    return;
+                }
+            }
+            File file = new File(filePath);
+            InputStream is = this.getAssets().open(fileName);
+            FileOutputStream os = new FileOutputStream(file);
+            byte[] buf = new byte[1024];
+            int red=-1;
+            while ((red=is.read(buf)) != -1) {
+                os.write(buf);
+            }
+            is.close();
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("TAG", "复制样式文件失败");
+        }
+    }
+
 }
