@@ -225,8 +225,7 @@ public class MainActivity extends AppCompatActivity {
             InputStream is = this.getAssets().open(fileName);
             FileOutputStream os = new FileOutputStream(file);
             byte[] buf = new byte[1024];
-            int red=-1;
-            while ((red=is.read(buf)) != -1) {
+            while ((is.read(buf)) != -1) {
                 os.write(buf);
             }
             is.close();

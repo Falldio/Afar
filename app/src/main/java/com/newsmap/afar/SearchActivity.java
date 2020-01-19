@@ -6,9 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.EditText;
@@ -24,6 +22,9 @@ import java.util.ArrayList;
 import com.newsmap.afar.search.searchedNewsFragment;
 import com.newsmap.afar.search.searchedNewsRecyclerViewAdapter;
 
+//import jackmego.com.jieba_android.JiebaSegmenter;
+
+
 public class SearchActivity extends AppCompatActivity implements searchedNewsFragment.OnListFragmentInteractionListener{
     private ArrayList<news> newsEvents=new ArrayList<>();//新闻事件
     private RecyclerView recyclerView;//搜索结果列表
@@ -32,12 +33,14 @@ public class SearchActivity extends AppCompatActivity implements searchedNewsFra
     private EditText searchInput;//搜索框
     private ArrayList<news> searchedNews=new ArrayList<>();//搜索结果
     InputMethodManager inputMethodManager;
+//    JiebaSegmenter segmenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+//        JiebaSegmenter.init(getApplicationContext());
         Intent it=getIntent();
         final Bundle bundle=it.getExtras();
         if(bundle!=null)
@@ -56,6 +59,7 @@ public class SearchActivity extends AppCompatActivity implements searchedNewsFra
                     inputMethodManager.hideSoftInputFromWindow(searchInput.getWindowToken(),0);
                     searchedNews.clear();
                     CharSequence s=textView.getText();
+
                     if(s == null || TextUtils.isEmpty(s.toString())){
                         return false;
                     }
