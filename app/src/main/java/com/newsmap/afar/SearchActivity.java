@@ -18,11 +18,12 @@ import android.content.Context;
 import com.newsmap.afar.data.news;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import com.newsmap.afar.search.searchedNewsFragment;
 import com.newsmap.afar.search.searchedNewsRecyclerViewAdapter;
+import jackmego.com.jieba_android.JiebaSegmenter;
 
-//import jackmego.com.jieba_android.JiebaSegmenter;
 
 
 public class SearchActivity extends AppCompatActivity implements searchedNewsFragment.OnListFragmentInteractionListener{
@@ -33,14 +34,12 @@ public class SearchActivity extends AppCompatActivity implements searchedNewsFra
     private EditText searchInput;//搜索框
     private ArrayList<news> searchedNews=new ArrayList<>();//搜索结果
     InputMethodManager inputMethodManager;
-//    JiebaSegmenter segmenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-//        JiebaSegmenter.init(getApplicationContext());
         Intent it=getIntent();
         final Bundle bundle=it.getExtras();
         if(bundle!=null)
@@ -56,25 +55,45 @@ public class SearchActivity extends AppCompatActivity implements searchedNewsFra
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if ((i == EditorInfo.IME_ACTION_SEARCH)) {
                     //清除之前的搜索结果
-                    inputMethodManager.hideSoftInputFromWindow(searchInput.getWindowToken(),0);
                     searchedNews.clear();
-                    CharSequence s=textView.getText();
-
-                    if(s == null || TextUtils.isEmpty(s.toString())){
+                    inputMethodManager.hideSoftInputFromWindow(searchInput.getWindowToken(),0);
+                    //处理搜索请求:删除特殊符号
+                    String processedText=textView.getText().toString().replaceAll("[^0-9a-zA-Z\u4e00-\u9fa5.，,。？“”]+","");
+                    ArrayList<String> query=JiebaSegmenter.getJiebaSegmenterSingleton().getDividedString(processedText);
+                    if(query.size()<=0){
                         return false;
                     }
-                    String content = s.toString();
-                    if(!TextUtils.isEmpty(content)){
+                    for(String keyword:query){
                         for(news event:newsEvents){
+                            event.restore();
                             String eventTitle=event.getTitle();
                             String eventContent=event.getContent();
-                            if(eventTitle==null||eventContent==null)    return true;
-                            if (eventTitle.contains(s)||eventContent.contains(s)){
-                                searchedNews.add(event);
-                                viewAdapter.notifyDataSetChanged();
+                            if(eventTitle==null||eventContent==null)    break;
+                            if(eventTitle.contains(keyword)||eventContent.contains(keyword)){
+                                event.relativity++;
                             }
                         }
                     }
+                    ArrayList<news> result=new ArrayList<>();
+                    for(news event:newsEvents){
+                        if (event.relativity>0){
+                            result.add(event);
+                        }
+                    }
+                    //根据相关度降序排列
+                    result.sort(new Comparator<news>() {
+                        @Override
+                        public int compare(news news, news t1) {
+                            if(news.relativity < t1.relativity){
+                                return 1;
+                            }else if(news.relativity > t1.relativity){
+                                return -1;
+                            }
+                            return 0;
+                        }
+                    });
+                    searchedNews.addAll(result);
+                    viewAdapter.notifyDataSetChanged();
                 }
                 return false;
             }

@@ -26,6 +26,7 @@ public class news implements Parcelable {
     private BitmapDescriptor icon;
     private MarkerOptions markerOptions;
     private TextOptions textOptions;
+    public int relativity=0;//搜索相关度
 
      public news(){
         markerOptions=new MarkerOptions();
@@ -186,5 +187,10 @@ public class news implements Parcelable {
          source=in.readString();
          title=in.readString();
          date=in.readString();
+    }
+
+    //重设部分参数
+    public void restore(){
+        relativity=0;
     }
 }
