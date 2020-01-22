@@ -12,6 +12,8 @@ import com.amap.api.maps.model.TextOptions;
 
 import com.newsmap.afar.R;
 
+import java.util.ArrayList;
+
 //将数据库中获取的新闻数据存放到news类中
 public class news implements Parcelable {
     private String markerId;//对应marker的索引值
@@ -27,6 +29,7 @@ public class news implements Parcelable {
     private MarkerOptions markerOptions;
     private TextOptions textOptions;
     public int relativity=0;//搜索相关度
+    private ArrayList<String> keyWords =new ArrayList<>();
 
      public news(){
         markerOptions=new MarkerOptions();
@@ -38,7 +41,15 @@ public class news implements Parcelable {
         icon= BitmapDescriptorFactory.fromResource(R.drawable.location);
         markerOptions.icon(icon);
     }
-
+    public void addKeyWord(String keyWord){
+         if(keyWord!=null&&!keyWord.equals("")) {
+             this.keyWords.add(keyWord);
+             Log.i("TAG", "addKeyWord: "+keyWord);
+         }
+         else{
+             Log.e("TAG", "addKeyWord: keyWord为空");
+         }
+    }
     public String getCategory(){
          if(category!=null)
              return category;

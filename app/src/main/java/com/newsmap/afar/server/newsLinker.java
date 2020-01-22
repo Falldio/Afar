@@ -22,7 +22,7 @@ public class newsLinker{
         final String User = "root";
         final String Password = "2019lcwrhh";
         final String Port = "10232";
-        final String db = "/news_huanqiu";
+        final String db = "/news_xinhua";
         final String url = "jdbc:mysql://" + Hostname + ":" + Port + db;
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -56,17 +56,23 @@ public class newsLinker{
                 result=statement.executeQuery(queryNews);
                 result.beforeFirst();
                 while (result.next()){
-                    news event = new news();
-                    double lat = result.getDouble("latitude");
-                    double lon = result.getDouble("longitude");
-                    event.setLocation(new LatLng(lat, lon));
-                    event.setTitle(result.getNString("title"));
-                    event.setContent(result.getString("content"));
-                    event.setUrl(result.getString("url"));
-                    event.setDate(result.getString("date"));
-                    event.setSource(result.getString("source"));
-                    event.setCategory(result.getString("category"));
-                    events.add(event);
+                    if(result.getInt("flag")==1) {
+                        news event = new news();
+                        double lat = result.getDouble("latitude");
+                        double lon = result.getDouble("longitude");
+                        String[] keywords=result.getString("keywords").split(",");
+                        for(String keyword:keywords){
+                            event.addKeyWord(keyword);
+                        }
+                        event.setLocation(new LatLng(lat, lon));
+                        event.setTitle(result.getNString("title"));
+                        event.setContent(result.getString("content"));
+                        event.setUrl(result.getString("url"));
+                        event.setDate(result.getString("date"));
+                        event.setSource(result.getString("source"));
+                        event.setCategory(result.getString("category"));
+                        events.add(event);
+                    }
             }
             result.close();
         } catch (SQLException e) {

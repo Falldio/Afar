@@ -1,10 +1,12 @@
 package com.newsmap.afar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,10 +24,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;//数组
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.CustomMapStyleOptions;
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.Polyline;
+import com.amap.api.maps.model.PolylineOptions;
+import com.amap.api.maps.model.PolylineOptionsCreator;
 import com.amap.api.maps.model.Text;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.newsmap.afar.data.news;
@@ -57,6 +67,16 @@ public class MainActivity extends AppCompatActivity {
 
         //初始化地图与数据
         initMapView(savedInstanceState);
+//        PolylineOptions option=new PolylineOptions();
+//        option.add(new LatLng(10,100));
+//        option.add(new LatLng(30,150));
+//        option.geodesic(true);
+//        List<Integer>colors=new ArrayList<>();
+//        colors.add(Color.argb(255,255,0,0));
+//        colors.add(Color.argb(255,0,255,0));
+//        option.useGradient(true);
+//        option.colorValues(colors);
+//        aMap.addPolyline(option);
         initData();
         //初始化视图
         initView();
