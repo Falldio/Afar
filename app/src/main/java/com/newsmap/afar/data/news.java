@@ -29,7 +29,8 @@ public class news implements Parcelable {
     private MarkerOptions markerOptions;
     private TextOptions textOptions;
     public int relativity=0;//搜索相关度
-    private ArrayList<String> keyWords =new ArrayList<>();
+    private ArrayList<String> keyWords = new ArrayList<>();
+    public ArrayList<news> relatedNews= new ArrayList<>();
 
      public news(){
         markerOptions=new MarkerOptions();
@@ -90,6 +91,15 @@ public class news implements Parcelable {
             Log.e("TAG", "getContent: 新闻内容为空");
             return null;
         }
+    }
+
+    public LatLng getLocation(){
+         if (location!=null)
+             return location;
+         else {
+             Log.e("TAG","getLocation: 坐标为空");
+             return null;
+         }
     }
 
     public void setCategory(String category){
@@ -198,6 +208,15 @@ public class news implements Parcelable {
          source=in.readString();
          title=in.readString();
          date=in.readString();
+    }
+
+    public ArrayList<String> getKeyWords() {
+        if (keyWords.size()>0)
+            return keyWords;
+        else {
+            Log.e("TAG", "getKeyWords: 关键词为空");
+            return null;
+        }
     }
 
     //重设部分参数

@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.text.Html;
+import com.amap.api.maps.model.PolylineOptions.LineJoinType;
+
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
@@ -67,16 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
         //初始化地图与数据
         initMapView(savedInstanceState);
-//        PolylineOptions option=new PolylineOptions();
-//        option.add(new LatLng(10,100));
-//        option.add(new LatLng(30,150));
-//        option.geodesic(true);
-//        List<Integer>colors=new ArrayList<>();
-//        colors.add(Color.argb(255,255,0,0));
-//        colors.add(Color.argb(255,0,255,0));
-//        option.useGradient(true);
-//        option.colorValues(colors);
-//        aMap.addPolyline(option);
         initData();
         //初始化视图
         initView();
@@ -127,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("TAG","initData: 数据库为空");
                 }
                 if(newsEvents.size()!=0) {
+//                    getRelatedNews(newsEvents);
                     for (news event : newsEvents) {
                         Marker marker=aMap.addMarker(event.getMarkerOptions());
                         event.setMarkerId(marker.getId());
@@ -166,6 +159,20 @@ public class MainActivity extends AppCompatActivity {
                     if(newsEvents.get(i).getMarkerId().equals(marker.getId())){
                         newsTitle.setText(newsEvents.get(i).getTitle());
                         newsContent.setText(Html.fromHtml(newsEvents.get(i).getContent()));
+                        //相关新闻飞线生成
+                        for (int j=0;j<newsEvents.get(i).relatedNews.size();j++){
+                            PolylineOptions option=new PolylineOptions();
+                            option.add(newsEvents.get(i).getLocation());
+                            option.add(newsEvents.get(i).relatedNews.get(j).getLocation());
+                            option.geodesic(true);
+                            option.lineJoinType(LineJoinType.LineJoinRound);
+                            List<Integer>colors=new ArrayList<>();
+                            colors.add(Color.argb(255,255,0,0));
+                            colors.add(Color.argb(255,0,255,0));
+                            option.useGradient(true);
+                            option.colorValues(colors);
+                            aMap.addPolyline(option);
+                        }
                         break;
                     }
                 }
@@ -182,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTouch(android.view.MotionEvent event){
                 if(newsDetail.isShown()){
                     newsDetail.setVisibility(View.GONE);
+
                 }
             }
         });
@@ -256,4 +264,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void getRelatedNews(ArrayList<news> newsEvents){
+        for (news event:newsEvents){
+            for (news event1:newsEvents){
+                boolean isAdded=false;
+                if (event!=event1){
+                    for (String keyWord:event.getKeyWords()){
+                        for (String keyWord1:event1.getKeyWords()){
+                            if (keyWord.equals(keyWord1)){
+                                event.relatedNews.add(event1);
+                                isAdded=true;
+                                break;
+                            }
+                        }
+                        if (isAdded)    break;
+                    }
+                }
+            }
+        }
+    }
 }
