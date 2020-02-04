@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.EditText;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
+import android.net.Uri;
 
 import com.newsmap.afar.data.news;
 
@@ -111,6 +111,8 @@ public class SearchActivity extends AppCompatActivity implements searchedNewsFra
     //单个Item点击回调
     @Override
     public void onListFragmentInteraction(news item){
-
+        Uri uri = Uri.parse(item.getUrl());
+        Intent intent  = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 }

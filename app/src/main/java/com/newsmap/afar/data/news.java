@@ -127,7 +127,7 @@ public class news implements Parcelable {
         this.url=url;
     }
 
-    public String getUrl(String url){
+    public String getUrl(){
         if(url!=null)
             return url;
         else{

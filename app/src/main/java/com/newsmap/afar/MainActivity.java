@@ -264,23 +264,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void getRelatedNews(ArrayList<news> newsEvents){
-        for (news event:newsEvents){
-            for (news event1:newsEvents){
-                boolean isAdded=false;
-                if (event!=event1){
-                    for (String keyWord:event.getKeyWords()){
-                        for (String keyWord1:event1.getKeyWords()){
-                            if (keyWord.equals(keyWord1)){
-                                event.relatedNews.add(event1);
-                                isAdded=true;
-                                break;
-                            }
-                        }
-                        if (isAdded)    break;
-                    }
-                }
-            }
-        }
-    }
+//    private void getRelatedNews(ArrayList<news> newsEvents){
+//        for (news event:newsEvents){
+//            for (news event1:newsEvents){
+//                boolean isAdded=false;
+//                if (event!=event1){
+//                    for (String keyWord:event.getKeyWords()){
+//                        for (String keyWord1:event1.getKeyWords()){
+//                            if (keyWord.equals(keyWord1)){
+//                                event.relatedNews.add(event1);
+//                                isAdded=true;
+//                                break;
+//                            }
+//                        }
+//                        if (isAdded)    break;
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
