@@ -15,29 +15,17 @@ import android.view.ViewGroup;
 import com.newsmap.afar.R;
 import com.newsmap.afar.data.searchedNews;
 import com.newsmap.afar.data.news;
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
+
+
 public class searchedNewsFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public searchedNewsFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static searchedNewsFragment newInstance(int columnCount) {
         searchedNewsFragment fragment = new searchedNewsFragment();
         Bundle args = new Bundle();

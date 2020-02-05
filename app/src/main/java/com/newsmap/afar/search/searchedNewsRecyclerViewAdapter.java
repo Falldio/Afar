@@ -14,11 +14,6 @@ import com.newsmap.afar.data.news;
 
 import java.util.ArrayList;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link news} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- */
-
  public class searchedNewsRecyclerViewAdapter extends RecyclerView.Adapter<searchedNewsRecyclerViewAdapter.ViewHolder> {
 
     private final ArrayList<news> mValues;
