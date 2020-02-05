@@ -1,7 +1,6 @@
 package com.newsmap.afar;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -26,18 +25,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;//数组
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.CustomMapStyleOptions;
-import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
-import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
-import com.amap.api.maps.model.PolylineOptionsCreator;
 import com.amap.api.maps.model.Text;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.newsmap.afar.data.news;

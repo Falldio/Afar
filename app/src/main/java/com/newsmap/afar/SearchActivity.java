@@ -3,6 +3,7 @@ package com.newsmap.afar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
 import android.net.Uri;
 
+import com.google.android.material.tabs.TabLayout;
 import com.newsmap.afar.data.news;
 
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ public class SearchActivity extends AppCompatActivity implements searchedNewsFra
     private RecyclerView.LayoutManager layoutManager;
     private EditText searchInput;//搜索框
     private ArrayList<news> searchedNews=new ArrayList<>();//搜索结果
+    private TabLayout tabLayout;//标签切换
+    private ViewPager viewPager;//视图切换
     InputMethodManager inputMethodManager;
 
 
@@ -40,6 +44,11 @@ public class SearchActivity extends AppCompatActivity implements searchedNewsFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        tabLayout=findViewById(R.id.tabLayout);
+        viewPager=findViewById(R.id.viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
         Intent it=getIntent();
         final Bundle bundle=it.getExtras();
         if(bundle!=null)
