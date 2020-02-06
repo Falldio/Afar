@@ -48,11 +48,13 @@
             app:tabTextColor="@color/grey">
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tabText" />
+                android:text="@string/tabText"/>
 
             <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabMap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tabMap" />

@@ -1,13 +1,14 @@
 package com.newsmap.afar.search;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import androidx.fragment.app.ListFragment;
 
+
+//将标签子页面存入ViewPager
 public class searchResultAdapter extends FragmentPagerAdapter {
     private static final int PAGE_COUNT = 2;
 

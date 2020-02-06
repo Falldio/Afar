@@ -17,6 +17,7 @@ import com.newsmap.afar.data.searchedNews;
 import com.newsmap.afar.data.news;
 
 
+//单个新闻搜索结果
 public class searchedNewsFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";

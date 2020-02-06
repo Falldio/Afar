@@ -14,7 +14,8 @@ import com.newsmap.afar.data.news;
 
 import java.util.ArrayList;
 
- public class searchedNewsRecyclerViewAdapter extends RecyclerView.Adapter<searchedNewsRecyclerViewAdapter.ViewHolder> {
+//将新闻搜索结果存入RecyclerView
+public class searchedNewsRecyclerViewAdapter extends RecyclerView.Adapter<searchedNewsRecyclerViewAdapter.ViewHolder> {
 
     private final ArrayList<news> mValues;
     private final OnListFragmentInteractionListener mListener;

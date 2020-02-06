@@ -1,6 +1,7 @@
 package com.newsmap.afar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -22,13 +23,14 @@ import com.newsmap.afar.data.news;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import com.newsmap.afar.search.searchResultAdapter;
 import com.newsmap.afar.search.searchedNewsFragment;
 import com.newsmap.afar.search.searchedNewsRecyclerViewAdapter;
 import jackmego.com.jieba_android.JiebaSegmenter;
 
 
 
-public class SearchActivity extends AppCompatActivity implements searchedNewsFragment.OnListFragmentInteractionListener{
+public class SearchActivity extends FragmentActivity implements searchedNewsFragment.OnListFragmentInteractionListener{
     private ArrayList<news> newsEvents=new ArrayList<>();//新闻事件
     private RecyclerView recyclerView;//搜索结果列表
     private RecyclerView.Adapter viewAdapter;
@@ -37,6 +39,7 @@ public class SearchActivity extends AppCompatActivity implements searchedNewsFra
     private ArrayList<news> searchedNews=new ArrayList<>();//搜索结果
     private TabLayout tabLayout;//标签切换
     private ViewPager viewPager;//视图切换
+    private searchResultAdapter viewPagerAdapter;
     InputMethodManager inputMethodManager;
 
 
@@ -45,20 +48,22 @@ public class SearchActivity extends AppCompatActivity implements searchedNewsFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        tabLayout=findViewById(R.id.tabLayout);
-        viewPager=findViewById(R.id.viewPager);
-        tabLayout.setupWithViewPager(viewPager);
+        initView();
+        initData();
+        setListener();
+    }
 
-        Intent it=getIntent();
-        final Bundle bundle=it.getExtras();
-        if(bundle!=null)
-            newsEvents = bundle.getParcelableArrayList("newsEvents");
-        else{
-            Log.e("TAG", "onCreate: 传入数据为空");
-        }
-        inputMethodManager=(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        searchInput=findViewById(R.id.searchBarInput);
+    //单个Item点击回调
+    @Override
+    public void onListFragmentInteraction(news item){
+        Uri uri = Uri.parse(item.getUrl());
+        Intent intent  = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+
+    private void setListener(){
         //设置软键盘监听事件
+        inputMethodManager=(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         searchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -107,21 +112,33 @@ public class SearchActivity extends AppCompatActivity implements searchedNewsFra
                 return false;
             }
         });
-        recyclerView=findViewById(R.id.searchResultList);
-        layoutManager=new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        viewAdapter=new searchedNewsRecyclerViewAdapter(searchedNews,this);
-        recyclerView.setAdapter(viewAdapter);
-
 
     }
 
-    //单个Item点击回调
-    @Override
-    public void onListFragmentInteraction(news item){
-        Uri uri = Uri.parse(item.getUrl());
-        Intent intent  = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
+    private void initView(){
+        //标签切换页相关变量初始化
+        tabLayout=findViewById(R.id.tabLayout);
+        viewPagerAdapter=new searchResultAdapter(getSupportFragmentManager());
+        viewPager=findViewById(R.id.viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
+        //搜索结果界面
+        searchInput=findViewById(R.id.searchBarInput);
+        recyclerView=findViewById(R.id.searchResultList);
+        layoutManager=new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        viewAdapter=new searchedNewsRecyclerViewAdapter(searchedNews,this);
+        recyclerView.setAdapter(viewAdapter);
+    }
+
+    private void initData(){
+        Intent it=getIntent();
+        final Bundle bundle=it.getExtras();
+        if(bundle!=null)
+            newsEvents = bundle.getParcelableArrayList("newsEvents");
+        else{
+            Log.e("TAG", "onCreate: 传入数据为空");
+        }
+
     }
 }
