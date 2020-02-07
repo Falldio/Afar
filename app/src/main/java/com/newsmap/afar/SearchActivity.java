@@ -30,11 +30,11 @@ import jackmego.com.jieba_android.JiebaSegmenter;
 
 
 
-public class SearchActivity extends FragmentActivity implements searchedNewsFragment.OnListFragmentInteractionListener{
+public class SearchActivity extends FragmentActivity{
     private ArrayList<news> newsEvents=new ArrayList<>();//新闻事件
-    private RecyclerView recyclerView;//搜索结果列表
-    private RecyclerView.Adapter viewAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+//    private RecyclerView recyclerView;//搜索结果列表
+//    private RecyclerView.Adapter viewAdapter;
+//    private RecyclerView.LayoutManager layoutManager;
     private EditText searchInput;//搜索框
     private ArrayList<news> searchedNews=new ArrayList<>();//搜索结果
     private TabLayout tabLayout;//标签切换
@@ -53,13 +53,13 @@ public class SearchActivity extends FragmentActivity implements searchedNewsFrag
         setListener();
     }
 
-    //单个Item点击回调
-    @Override
-    public void onListFragmentInteraction(news item){
-        Uri uri = Uri.parse(item.getUrl());
-        Intent intent  = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
-    }
+//    //单个Item点击回调
+//    @Override
+//    public void onListFragmentInteraction(news item){
+//        Uri uri = Uri.parse(item.getUrl());
+//        Intent intent  = new Intent(Intent.ACTION_VIEW, uri);
+//        startActivity(intent);
+//    }
 
     private void setListener(){
         //设置软键盘监听事件
@@ -107,7 +107,7 @@ public class SearchActivity extends FragmentActivity implements searchedNewsFrag
                         }
                     });
                     searchedNews.addAll(result);
-                    viewAdapter.notifyDataSetChanged();
+//                    viewAdapter.notifyDataSetChanged();
                 }
                 return false;
             }
@@ -124,11 +124,11 @@ public class SearchActivity extends FragmentActivity implements searchedNewsFrag
 
         //搜索结果界面
         searchInput=findViewById(R.id.searchBarInput);
-        recyclerView=findViewById(R.id.searchResultList);
-        layoutManager=new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        viewAdapter=new searchedNewsRecyclerViewAdapter(searchedNews,this);
-        recyclerView.setAdapter(viewAdapter);
+//        recyclerView=findViewById(R.id.searchResultList);
+//        layoutManager=new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(layoutManager);
+//        viewAdapter=new searchedNewsRecyclerViewAdapter(searchedNews,this);
+//        recyclerView.setAdapter(viewAdapter);
     }
 
     private void initData(){
