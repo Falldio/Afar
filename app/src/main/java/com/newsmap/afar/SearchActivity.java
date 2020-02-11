@@ -139,6 +139,5 @@ public class SearchActivity extends FragmentActivity{
         else{
             Log.e("TAG", "onCreate: 传入数据为空");
         }
-
     }
 }
