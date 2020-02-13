@@ -45,7 +45,6 @@ public class news implements Parcelable {
     public void addKeyWord(String keyWord){
          if(keyWord!=null&&!keyWord.equals("")) {
              this.keyWords.add(keyWord);
-             Log.i("TAG", "addKeyWord: "+keyWord);
          }
          else{
              Log.e("TAG", "addKeyWord: keyWord为空");
@@ -196,11 +195,22 @@ public class news implements Parcelable {
          out.writeString(source);
          out.writeString(title);
          out.writeString(date);
+         out.writeDouble(location.latitude);
+         out.writeDouble(location.longitude);
          //其余数据无需传入搜索页
     }
 
     private news(Parcel in){
-         markerId=in.readString();
+        markerOptions=new MarkerOptions();
+        textOptions=new TextOptions();
+        markerOptions.infoWindowEnable(false);
+        markerOptions.title(title);
+        textOptions.backgroundColor(0);
+        textOptions.fontSize(50);
+        icon= BitmapDescriptorFactory.fromResource(R.drawable.location);
+        markerOptions.icon(icon);
+
+        markerId=in.readString();
          textId=in.readString();
          category=in.readString();
          content=in.readString();
@@ -208,6 +218,13 @@ public class news implements Parcelable {
          source=in.readString();
          title=in.readString();
          date=in.readString();
+         double lat=in.readDouble();
+         double lon=in.readDouble();
+         location=new LatLng(lat,lon);
+         markerOptions.title(title);
+         textOptions.text(title);
+         markerOptions.position(location);
+         textOptions.position(location);
     }
 
     public ArrayList<String> getKeyWords() {

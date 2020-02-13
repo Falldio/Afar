@@ -1,9 +1,6 @@
 package com.newsmap.afar;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
@@ -15,32 +12,27 @@ import android.widget.TextView;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
-import android.net.Uri;
 
 import com.google.android.material.tabs.TabLayout;
 import com.newsmap.afar.data.news;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-
+import com.newsmap.afar.search.tabViewPager;
 import com.newsmap.afar.search.searchResultAdapter;
-import com.newsmap.afar.search.searchedNewsFragment;
-import com.newsmap.afar.search.searchedNewsRecyclerViewAdapter;
 import jackmego.com.jieba_android.JiebaSegmenter;
 
 
 
 public class SearchActivity extends FragmentActivity{
     private ArrayList<news> newsEvents=new ArrayList<>();//新闻事件
-//    private RecyclerView recyclerView;//搜索结果列表
-//    private RecyclerView.Adapter viewAdapter;
-//    private RecyclerView.LayoutManager layoutManager;
     private EditText searchInput;//搜索框
     private ArrayList<news> searchedNews=new ArrayList<>();//搜索结果
     private TabLayout tabLayout;//标签切换
-    private ViewPager viewPager;//视图切换
+    private tabViewPager viewPager;//视图切换
     private searchResultAdapter viewPagerAdapter;
     InputMethodManager inputMethodManager;
+
 
 
     @Override
@@ -53,13 +45,7 @@ public class SearchActivity extends FragmentActivity{
         setListener();
     }
 
-//    //单个Item点击回调
-//    @Override
-//    public void onListFragmentInteraction(news item){
-//        Uri uri = Uri.parse(item.getUrl());
-//        Intent intent  = new Intent(Intent.ACTION_VIEW, uri);
-//        startActivity(intent);
-//    }
+
 
     private void setListener(){
         //设置软键盘监听事件
@@ -107,7 +93,7 @@ public class SearchActivity extends FragmentActivity{
                         }
                     });
                     searchedNews.addAll(result);
-//                    viewAdapter.notifyDataSetChanged();
+                    viewPagerAdapter.changeSearchResult(searchedNews);
                 }
                 return false;
             }
@@ -120,15 +106,11 @@ public class SearchActivity extends FragmentActivity{
         tabLayout=findViewById(R.id.tabLayout);
         viewPagerAdapter=new searchResultAdapter(getSupportFragmentManager());
         viewPager=findViewById(R.id.viewPager);
+        viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
         //搜索结果界面
         searchInput=findViewById(R.id.searchBarInput);
-//        recyclerView=findViewById(R.id.searchResultList);
-//        layoutManager=new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(layoutManager);
-//        viewAdapter=new searchedNewsRecyclerViewAdapter(searchedNews,this);
-//        recyclerView.setAdapter(viewAdapter);
     }
 
     private void initData(){

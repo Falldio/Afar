@@ -56,7 +56,7 @@ public class newsLinker{
                 result=statement.executeQuery(queryNews);
                 result.beforeFirst();
                 while (result.next()){
-                    if(result.getInt("flag")==1) {
+                    if(result.getInt("flag")==3) {
                         news event = new news();
                         double lat = result.getDouble("latitude");
                         double lon = result.getDouble("longitude");

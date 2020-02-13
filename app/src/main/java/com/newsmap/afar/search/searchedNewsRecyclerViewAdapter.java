@@ -20,7 +20,7 @@ public class searchedNewsRecyclerViewAdapter extends RecyclerView.Adapter<search
     private final ArrayList<news> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public searchedNewsRecyclerViewAdapter(ArrayList<news> items, OnListFragmentInteractionListener listener) {
+    searchedNewsRecyclerViewAdapter(ArrayList<news> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

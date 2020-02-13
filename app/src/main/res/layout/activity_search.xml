@@ -34,7 +34,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <com.newsmap.afar.search.tabViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,32 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabSelectedTextColor="@color/mainTheme"
-            app:tabTextColor="@color/grey">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tabText"/>
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabMap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tabMap" />
-
+            app:tabTextColor="@color/mainTheme">
         </com.google.android.material.tabs.TabLayout>
-    </androidx.viewpager.widget.ViewPager>
 
-    <!--<androidx.recyclerview.widget.RecyclerView-->
-        <!--android:id="@+id/searchResultList"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/card_margin"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@id/searchBarCard"-->
-        <!--tools:listitem="@layout/fragment_searched_news_list" >-->
-
-    <!--</androidx.recyclerview.widget.RecyclerView>-->
+    </com.newsmap.afar.search.tabViewPager>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
