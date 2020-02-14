@@ -13,6 +13,7 @@ import com.amap.api.maps.model.TextOptions;
 import com.newsmap.afar.R;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 //将数据库中获取的新闻数据存放到news类中
 public class news implements Parcelable {
@@ -30,7 +31,7 @@ public class news implements Parcelable {
     private TextOptions textOptions;
     public int relativity=0;//搜索相关度
     private ArrayList<String> keyWords = new ArrayList<>();
-    public ArrayList<news> relatedNews= new ArrayList<>();
+    public int[]relatedNews;
 
      public news(){
         markerOptions=new MarkerOptions();
@@ -197,7 +198,10 @@ public class news implements Parcelable {
          out.writeString(date);
          out.writeDouble(location.latitude);
          out.writeDouble(location.longitude);
-         //其余数据无需传入搜索页
+         out.writeInt(relatedNews.length);
+        for (int newsId:relatedNews) {
+            out.writeInt(newsId);
+        }
     }
 
     private news(Parcel in){
@@ -211,20 +215,25 @@ public class news implements Parcelable {
         markerOptions.icon(icon);
 
         markerId=in.readString();
-         textId=in.readString();
-         category=in.readString();
-         content=in.readString();
-         url=in.readString();
-         source=in.readString();
-         title=in.readString();
-         date=in.readString();
-         double lat=in.readDouble();
-         double lon=in.readDouble();
-         location=new LatLng(lat,lon);
-         markerOptions.title(title);
-         textOptions.text(title);
-         markerOptions.position(location);
-         textOptions.position(location);
+        textId=in.readString();
+        category=in.readString();
+        content=in.readString();
+        url=in.readString();
+        source=in.readString();
+        title=in.readString();
+        date=in.readString();
+        double lat=in.readDouble();
+        double lon=in.readDouble();
+        location=new LatLng(lat,lon);
+        markerOptions.title(title);
+        textOptions.text(title);
+        markerOptions.position(location);
+        textOptions.position(location);
+
+        relatedNews=new int[in.readInt()];
+        for (int i=0;i<relatedNews.length;i++){
+            relatedNews[i]=in.readInt();
+        }
     }
 
     public ArrayList<String> getKeyWords() {

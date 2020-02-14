@@ -51,28 +51,36 @@ public class newsLinker{
         ResultSet result;
         String queryNews = "SELECT * FROM news";
 
-            try{
-                statement=connection.createStatement();
-                result=statement.executeQuery(queryNews);
-                result.beforeFirst();
-                while (result.next()){
-                    if(result.getInt("flag")==3) {
-                        news event = new news();
-                        double lat = result.getDouble("latitude");
-                        double lon = result.getDouble("longitude");
-                        String[] keywords=result.getString("keywords").split(",");
-                        for(String keyword:keywords){
-                            event.addKeyWord(keyword);
-                        }
-                        event.setLocation(new LatLng(lat, lon));
-                        event.setTitle(result.getNString("title"));
-                        event.setContent(result.getString("content"));
-                        event.setUrl(result.getString("url"));
-                        event.setDate(result.getString("date"));
-                        event.setSource(result.getString("source"));
-                        event.setCategory(result.getString("category"));
-                        events.add(event);
+        try{
+            statement=connection.createStatement();
+            result=statement.executeQuery(queryNews);
+            result.beforeFirst();
+            while (result.next()){
+                if(result.getInt("flag")==3) {
+                    news event = new news();
+                    double lat = result.getDouble("latitude");
+                    double lon = result.getDouble("longitude");
+                    String[] keywords=result.getString("keywords").split(",");
+                    for(String keyword:keywords){
+                        event.addKeyWord(keyword);
                     }
+                    event.setLocation(new LatLng(lat, lon));
+                    event.setTitle(result.getNString("title"));
+                    event.setContent(result.getString("content"));
+                    event.setUrl(result.getString("url"));
+                    event.setDate(result.getString("date"));
+                    event.setSource(result.getString("source"));
+                    event.setCategory(result.getString("category"));
+                    String ReNewsId=result.getString("ReNewsId");
+                    if (ReNewsId!=null&&!ReNewsId.equals("无")){
+                        String[]relatedId=ReNewsId.split(",");
+                        event.relatedNews=new int[relatedId.length];
+                        for (int i=0;i<relatedId.length;i++){
+                            event.relatedNews[i]=Integer.parseInt(relatedId[i]);
+                        }
+                    }
+                    events.add(event);
+                }
             }
             result.close();
         } catch (SQLException e) {

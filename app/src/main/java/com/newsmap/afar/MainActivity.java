@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.text.Html;
+
+import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions.LineJoinType;
 
 
@@ -36,6 +38,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.newsmap.afar.data.news;
 import com.newsmap.afar.server.newsLinker;
 
+import static android.text.Html.FROM_HTML_MODE_COMPACT;
+
 //主界面
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout newsTitleCard;
     private ScrollView readPage;
     private CustomMapStyleOptions opt = new CustomMapStyleOptions();//自定义地图样式
+    private ArrayList<Polyline>relativeLines=new ArrayList<>();//相关新闻飞线
 
 
 
@@ -112,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("TAG","initData: 数据库为空");
                 }
                 if(newsEvents.size()!=0) {
-//                    getRelatedNews(newsEvents);
                     for (news event : newsEvents) {
                         Marker marker=aMap.addMarker(event.getMarkerOptions());
                         event.setMarkerId(marker.getId());
@@ -148,26 +152,32 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMarkerClick(Marker marker) {
                 newsDetail.setVisibility(View.VISIBLE);
 
+                news event=new news();
                 for(int i=0;i<newsEvents.size();i++){
                     if(newsEvents.get(i).getMarkerId().equals(marker.getId())){
                         newsTitle.setText(newsEvents.get(i).getTitle());
-                        newsContent.setText(Html.fromHtml(newsEvents.get(i).getContent()));
-                        //相关新闻飞线生成
-                        for (int j=0;j<newsEvents.get(i).relatedNews.size();j++){
-                            PolylineOptions option=new PolylineOptions();
-                            option.add(newsEvents.get(i).getLocation());
-                            option.add(newsEvents.get(i).relatedNews.get(j).getLocation());
-                            option.geodesic(true);
-                            option.lineJoinType(LineJoinType.LineJoinRound);
-                            List<Integer>colors=new ArrayList<>();
-                            colors.add(Color.argb(255,255,0,0));
-                            colors.add(Color.argb(255,0,255,0));
-                            option.useGradient(true);
-                            option.colorValues(colors);
-                            aMap.addPolyline(option);
-                        }
-                        break;
+                        newsContent.setText(Html.fromHtml(newsEvents.get(i).getContent(),FROM_HTML_MODE_COMPACT));
+                        event=newsEvents.get(i);
                     }
+                }
+                //相关新闻飞线生成
+                for (Polyline line:relativeLines){
+                    line.remove();
+                }
+                relativeLines.clear();
+
+                for (int i:event.relatedNews) {
+                    PolylineOptions option=new PolylineOptions();
+                    option.add(event.getLocation());
+                    option.add(newsEvents.get(event.relatedNews[i]).getLocation());
+                    List<Integer>colors=new ArrayList<>();
+                    colors.add(Color.argb(255,255,0,0));
+                    colors.add(Color.argb(255,0,255,0));
+                    option.useGradient(true);
+                    option.colorValues(colors);
+                    option.geodesic(true);
+                    option.lineJoinType(LineJoinType.LineJoinRound);
+                    relativeLines.add(aMap.addPolyline(option));
                 }
 
                 bottomSheetBehavior.setPeekHeight(newsTitleCard.getHeight());
@@ -256,24 +266,4 @@ public class MainActivity extends AppCompatActivity {
             Log.e("TAG", "复制样式文件失败");
         }
     }
-
-//    private void getRelatedNews(ArrayList<news> newsEvents){
-//        for (news event:newsEvents){
-//            for (news event1:newsEvents){
-//                boolean isAdded=false;
-//                if (event!=event1){
-//                    for (String keyWord:event.getKeyWords()){
-//                        for (String keyWord1:event1.getKeyWords()){
-//                            if (keyWord.equals(keyWord1)){
-//                                event.relatedNews.add(event1);
-//                                isAdded=true;
-//                                break;
-//                            }
-//                        }
-//                        if (isAdded)    break;
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
