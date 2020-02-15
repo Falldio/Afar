@@ -3,6 +3,7 @@ package com.newsmap.afar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView newsTitle;
     private TextView newsContent;
     private ConstraintLayout newsTitleCard;
-    private ScrollView readPage;
+    private NestedScrollView readPage;
     private CustomMapStyleOptions opt = new CustomMapStyleOptions();//自定义地图样式
     private ArrayList<Polyline>relativeLines=new ArrayList<>();//相关新闻飞线
 
@@ -143,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         readPage=newsDetail.findViewById(R.id.readPage);
         searchBar=findViewById(R.id.searchBar);
         bottomSheetBehavior.setHideable(false);
+//        bottomSheetBehavior.onNes0tedPreScroll();
     }
 
     //设置事件监听
@@ -195,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
             public void onTouch(android.view.MotionEvent event){
                 if(newsDetail.isShown()){
                     newsDetail.setVisibility(View.GONE);
-
                 }
             }
         });
@@ -206,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
             public void onStateChanged(@NonNull View view, int i) {
                 if (i==BottomSheetBehavior.STATE_COLLAPSED){
                     //重复打开同一新闻之前调整ScrollView
-                    ScrollView readPage=newsDetail.findViewById(R.id.readPage);
+                    readPage=newsDetail.findViewById(R.id.readPage);
                     readPage.scrollTo(0,0);
                     searchBar.setVisibility(View.VISIBLE);
                 }
@@ -228,6 +229,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSlide(@NonNull View view, float v) {
 
+            }
+        });
+
+        //设置标题栏点击返回顶端
+        newsTitleCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_EXPANDED){
+                    readPage=newsDetail.findViewById(R.id.readPage);
+                    readPage.scrollTo(0,0);
+                }
             }
         });
 
