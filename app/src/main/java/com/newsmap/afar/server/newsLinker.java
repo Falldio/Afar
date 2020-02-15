@@ -60,11 +60,14 @@ public class newsLinker{
                     news event = new news();
                     double lat = result.getDouble("latitude");
                     double lon = result.getDouble("longitude");
+                    lat+=Math.random();
+                    lon+=Math.random();
+                    event.setLocation(new LatLng(lat, lon));
+
                     String[] keywords=result.getString("keywords").split(",");
                     for(String keyword:keywords){
                         event.addKeyWord(keyword);
                     }
-                    event.setLocation(new LatLng(lat, lon));
                     event.setTitle(result.getNString("title"));
                     event.setContent(result.getString("content"));
                     event.setUrl(result.getString("url"));

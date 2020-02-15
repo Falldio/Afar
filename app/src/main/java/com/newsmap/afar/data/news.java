@@ -198,10 +198,15 @@ public class news implements Parcelable {
          out.writeString(date);
          out.writeDouble(location.latitude);
          out.writeDouble(location.longitude);
-         out.writeInt(relatedNews.length);
-        for (int newsId:relatedNews) {
-            out.writeInt(newsId);
-        }
+         if (relatedNews!=null) {
+             out.writeInt(relatedNews.length);
+             for (int newsId : relatedNews) {
+                 out.writeInt(newsId);
+             }
+         }else{
+             //relatedNews为空则数组长度为0
+             out.writeInt(0);
+         }
     }
 
     private news(Parcel in){
@@ -230,9 +235,12 @@ public class news implements Parcelable {
         markerOptions.position(location);
         textOptions.position(location);
 
-        relatedNews=new int[in.readInt()];
-        for (int i=0;i<relatedNews.length;i++){
-            relatedNews[i]=in.readInt();
+        int length=in.readInt();
+        if (length>0) {
+            relatedNews = new int[length];
+            for (int i = 0; i < relatedNews.length; i++) {
+                relatedNews[i] = in.readInt();
+            }
         }
     }
 

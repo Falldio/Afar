@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
                         newsTitle.setText(newsEvents.get(i).getTitle());
                         newsContent.setText(Html.fromHtml(newsEvents.get(i).getContent(),FROM_HTML_MODE_COMPACT));
                         event=newsEvents.get(i);
+                        break;
                     }
                 }
                 //相关新闻飞线生成
@@ -169,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i:event.relatedNews) {
                     PolylineOptions option=new PolylineOptions();
                     option.add(event.getLocation());
-                    option.add(newsEvents.get(event.relatedNews[i]).getLocation());
+                    option.add(newsEvents.get(i).getLocation());
                     List<Integer>colors=new ArrayList<>();
                     colors.add(Color.argb(255,255,0,0));
                     colors.add(Color.argb(255,0,255,0));
