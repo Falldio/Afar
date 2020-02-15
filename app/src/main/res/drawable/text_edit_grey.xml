@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <shape xmlns:android="http://schemas.android.com/apk/res/android">
+        <corners
+            android:bottomLeftRadius="@dimen/rounded_rec_angle_SearchBar"
+            android:bottomRightRadius="@dimen/rounded_rec_angle_SearchBar"
+            android:topLeftRadius="@dimen/rounded_rec_angle_SearchBar"
+            android:topRightRadius="@dimen/rounded_rec_angle_SearchBar" />
+        <stroke android:color="#F4F4F4" android:width="0dp"/>
+        <solid android:color="@color/newsList_card_grey" />
+    </shape>

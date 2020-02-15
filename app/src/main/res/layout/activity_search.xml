@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity"
-    android:background="@color/grey">
+    android:background="@color/white"
+    tools:context=".SearchActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/searchBarCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/search_bar"
+        android:layout_height="45dp"
+        android:background="@color/transparent"
         android:paddingStart="@dimen/search_bar_margin"
         android:paddingTop="@dimen/card_margin"
         android:paddingEnd="@dimen/search_bar_margin"
@@ -21,16 +21,19 @@
         <EditText
             android:id="@+id/searchBarInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
             android:autofillHints="@string/searchHint"
-            android:background="@color/grey"
+            android:background="@drawable/text_edit_grey"
             android:gravity="center_vertical"
             android:hint="@string/searchHint"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="15dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -45,8 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabSelectedTextColor="@color/mainTheme"
-            app:tabTextColor="@color/mainTheme">
-        </com.google.android.material.tabs.TabLayout>
+            app:tabTextColor="@color/mainTheme"></com.google.android.material.tabs.TabLayout>
 
     </com.newsmap.afar.search.tabViewPager>
 

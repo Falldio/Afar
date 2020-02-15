@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/card_margin"
-        tools:listitem="@layout/fragment_searched_news_list" >
+        android:background="@color/white"
+        tools:listitem="@layout/fragment_searched_news_list">
 
     </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
