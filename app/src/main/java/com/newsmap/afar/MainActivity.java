@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         newsTitleCard=newsDetail.findViewById(R.id.newsTitleCard);
         readPage=newsDetail.findViewById(R.id.readPage);
         searchBar=findViewById(R.id.searchBar);
+        bottomSheetBehavior.setHideable(false);
     }
 
     //设置事件监听
@@ -151,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 newsDetail.setVisibility(View.VISIBLE);
+                bottomSheetBehavior.setPeekHeight(newsTitleCard.getHeight());
 
                 news event=new news();
                 for(int i=0;i<newsEvents.size();i++){
