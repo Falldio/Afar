@@ -8,9 +8,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 import com.newsmap.afar.data.news;
+import com.newsmap.afar.data.eventLayer;
 
 //执行连接远程数据库获取新闻信息的任务
 public class newsLinker{
@@ -41,9 +41,9 @@ public class newsLinker{
     }
 
     //获取新闻数据
-    public boolean getNewsEvents(ArrayList<news>events){
+    public boolean initNews(eventLayer layer){
         if(connection==null) {
-            Log.e("TAG", "getNewsEvents: 尚未连接到数据库");
+            Log.e("TAG", "initNews: 尚未连接到数据库");
             return false;
         }
 
@@ -82,7 +82,12 @@ public class newsLinker{
                             event.relatedNews[i]=Integer.parseInt(relatedId[i]);
                         }
                     }
-                    events.add(event);
+                    event.setId(result.getInt("newsId"));
+                    if (event.getCategory().equals("国际要闻")) {
+                        layer.internationalNews.add(event);
+                    }else if (event.getCategory().equals("国内新闻")){
+                        layer.domesticNews.add(event);
+                    }
                 }
             }
             result.close();

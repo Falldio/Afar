@@ -13,7 +13,6 @@ import com.amap.api.maps.model.TextOptions;
 import com.newsmap.afar.R;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 //将数据库中获取的新闻数据存放到news类中
 public class news implements Parcelable {
@@ -31,6 +30,7 @@ public class news implements Parcelable {
     private TextOptions textOptions;
     public int relativity=0;//搜索相关度
     private ArrayList<String> keyWords = new ArrayList<>();
+    private int id=-1;//数据库中的id
     public int[]relatedNews;
 
      public news(){
@@ -61,6 +61,17 @@ public class news implements Parcelable {
     }
     public MarkerOptions getMarkerOptions(){
          return markerOptions;
+    }
+
+    public void setId(int id){
+         this.id=id;
+    }
+
+    public int getId(){
+         if (id==-1){
+             Log.e("TAG", "getId: id未初始化");
+         }
+         return id;
     }
 
     public TextOptions getTextOptions() {
@@ -207,6 +218,7 @@ public class news implements Parcelable {
              //relatedNews为空则数组长度为0
              out.writeInt(0);
          }
+         out.writeInt(id);
     }
 
     private news(Parcel in){
@@ -242,6 +254,7 @@ public class news implements Parcelable {
                 relatedNews[i] = in.readInt();
             }
         }
+        id=in.readInt();
     }
 
     public ArrayList<String> getKeyWords() {

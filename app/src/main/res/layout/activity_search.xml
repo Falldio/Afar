@@ -48,7 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabSelectedTextColor="@color/mainTheme"
-            app:tabTextColor="@color/mainTheme"></com.google.android.material.tabs.TabLayout>
+            app:tabTextColor="@color/mainTheme">
+        </com.google.android.material.tabs.TabLayout>
 
     </com.newsmap.afar.search.tabViewPager>
 

@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.text.Html;
 
@@ -34,10 +33,10 @@ import com.amap.api.maps.UiSettings;
 import com.amap.api.maps.model.CustomMapStyleOptions;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.PolylineOptions;
-import com.amap.api.maps.model.Text;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.newsmap.afar.data.news;
 import com.newsmap.afar.server.newsLinker;
+import com.newsmap.afar.data.eventLayer;
 
 import static android.text.Html.FROM_HTML_MODE_COMPACT;
 
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private AMap aMap;//高德地图对象
     private MapView mMapView;//地图视图
     private newsLinker connection = new newsLinker();//连接数据库
-    private ArrayList<news> newsEvents=new ArrayList<>();//新闻事件
+    private eventLayer newsEvents=new eventLayer();//新闻事件图层
     private View newsDetail;//底部详情页面
     private View searchBar;//顶部搜索栏
     private BottomSheetBehavior<View> bottomSheetBehavior;
@@ -99,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         uiSettings.setZoomControlsEnabled(false);
         uiSettings.setRotateGesturesEnabled(false);
         uiSettings.setTiltGesturesEnabled(false);
+        uiSettings.setLogoBottomMargin(-200);
 
 
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
@@ -114,20 +114,10 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("TAG", "initData: 数据库连接失败" );
                     return;
                 }
-                if(!connection.getNewsEvents(newsEvents)){
+                if(!connection.initNews(newsEvents)){
                     Log.e("TAG","initData: 数据库为空");
                 }
-                if(newsEvents.size()!=0) {
-                    for (news event : newsEvents) {
-                        Marker marker=aMap.addMarker(event.getMarkerOptions());
-                        event.setMarkerId(marker.getId());
-                        Text text=aMap.addText(event.getTextOptions());
-                        event.setTextId(text.getId());
-                    }
-                }
-                else{
-                    Log.e("TAG", "onCreate: newsEvents为空");
-                }
+                newsEvents.addMarker(aMap);
             }
         }.start();
     }
@@ -144,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
         readPage=newsDetail.findViewById(R.id.readPage);
         searchBar=findViewById(R.id.searchBar);
         bottomSheetBehavior.setHideable(false);
-//        bottomSheetBehavior.onNes0tedPreScroll();
     }
 
     //设置事件监听
@@ -156,15 +145,10 @@ public class MainActivity extends AppCompatActivity {
                 newsDetail.setVisibility(View.VISIBLE);
                 bottomSheetBehavior.setPeekHeight(newsTitleCard.getHeight());
 
-                news event=new news();
-                for(int i=0;i<newsEvents.size();i++){
-                    if(newsEvents.get(i).getMarkerId().equals(marker.getId())){
-                        newsTitle.setText(newsEvents.get(i).getTitle());
-                        newsContent.setText(Html.fromHtml(newsEvents.get(i).getContent(),FROM_HTML_MODE_COMPACT));
-                        event=newsEvents.get(i);
-                        break;
-                    }
-                }
+                news event=newsEvents.findNewsByMarkerId(marker.getId());
+                newsTitle.setText(event.getTitle());
+                newsContent.setText(Html.fromHtml(event.getContent(),FROM_HTML_MODE_COMPACT));
+
                 //相关新闻飞线生成
                 for (Polyline line:relativeLines){
                     line.remove();
@@ -174,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i:event.relatedNews) {
                     PolylineOptions option=new PolylineOptions();
                     option.add(event.getLocation());
-                    option.add(newsEvents.get(i).getLocation());
+                    option.add(newsEvents.findNewsById(i).getLocation());
                     List<Integer>colors=new ArrayList<>();
                     colors.add(Color.argb(255,255,0,0));
                     colors.add(Color.argb(255,0,255,0));
@@ -246,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
         //设置搜索页回调
         final Intent intent=new Intent(this,SearchActivity.class);
         Bundle bundle=new Bundle();
-        bundle.putParcelableArrayList("newsEvents",newsEvents);
+        bundle.putParcelableArrayList("newsEvents",newsEvents.getAllNews());
         intent.putExtras(bundle);
         searchBar.setOnClickListener(new View.OnClickListener(){
             @Override
