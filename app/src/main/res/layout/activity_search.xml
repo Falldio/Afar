@@ -16,7 +16,8 @@
         android:paddingTop="@dimen/card_margin"
         android:paddingEnd="@dimen/search_bar_margin"
         android:paddingBottom="@dimen/card_margin"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/status_bar_height">
 
         <EditText
             android:id="@+id/searchBarInput"

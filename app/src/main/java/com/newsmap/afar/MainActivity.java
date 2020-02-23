@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.text.Html;
+import android.view.WindowManager;
+import android.view.Window;
 
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions.LineJoinType;
@@ -64,6 +66,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.TRANSPARENT);
+        window.setNavigationBarColor(Color.TRANSPARENT);
 
         //初始化地图与数据
         initMapView(savedInstanceState);
@@ -229,13 +241,13 @@ public class MainActivity extends AppCompatActivity {
 
         //设置搜索页回调
         final Intent intent=new Intent(this,SearchActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putParcelableArrayList("newsEvents",newsEvents.getAllNews());
-        intent.putExtras(bundle);
         searchBar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 //切换到SearchActivity
+                Bundle bundle=new Bundle();
+                bundle.putParcelableArrayList("newsEvents",newsEvents.getAllNews());
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
