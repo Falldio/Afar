@@ -8,9 +8,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.newsmap.afar.data.news;
 import com.newsmap.afar.data.eventLayer;
+import com.newsmap.afar.data.abstractNews;
 
 //执行连接远程数据库获取新闻信息的任务
 public class newsLinker{
@@ -50,6 +53,11 @@ public class newsLinker{
         Statement statement;
         ResultSet result;
         String queryNews = "SELECT * FROM news";
+        ArrayList<abstractNews> countries=new ArrayList<>();
+        abstractNews china=new abstractNews();//必然存在国内新闻
+        china.setLocation("中国");
+        china.setCoordinate(new LatLng(39.55,116.2));
+        countries.add(china);
 
         try{
             statement=connection.createStatement();
@@ -60,9 +68,9 @@ public class newsLinker{
                     news event = new news();
                     double lat = result.getDouble("latitude");
                     double lon = result.getDouble("longitude");
-                    lat+=Math.random();
-                    lon+=Math.random();
-                    event.setLocation(new LatLng(lat, lon));
+                    double lat1=lat+Math.random();
+                    double lon1=lon+Math.random();
+                    event.setLocation(new LatLng(lat1, lon1));
 
                     String[] keywords=result.getString("keywords").split(",");
                     for(String keyword:keywords){
@@ -85,11 +93,29 @@ public class newsLinker{
                     event.setId(result.getInt("newsId"));
                     if (event.getCategory().equals("国际要闻")) {
                         layer.internationalNews.add(event);
+
+//                        String location=result.getString("location");
+//                        for (int i=0;i<countries.size();i++) {
+//                            abstractNews country=countries.get(i);
+//                            if (country.getLocation().equals(location)) {
+//                                country.addCount();
+//                                break;
+//                            } else {
+//                                abstractNews news = new abstractNews();
+//                                news.setLocation(location);
+//                                news.setCoordinate(new LatLng(lat, lon));
+//                                news.addCount();
+//                                countries.add(news);
+//                            }
+//                        }
+
                     }else if (event.getCategory().equals("国内新闻")){
                         layer.domesticNews.add(event);
+                        china.addCount();
                     }
                 }
             }
+            layer.countries=countries;
             result.close();
         } catch (SQLException e) {
             e.printStackTrace();

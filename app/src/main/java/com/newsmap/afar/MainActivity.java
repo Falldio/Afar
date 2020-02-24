@@ -16,6 +16,7 @@ import android.text.Html;
 import android.view.WindowManager;
 import android.view.Window;
 
+import com.amap.api.maps.model.CameraPosition;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions.LineJoinType;
 
@@ -174,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                     List<Integer>colors=new ArrayList<>();
                     colors.add(Color.argb(255,255,0,0));
                     colors.add(Color.argb(255,0,255,0));
+                    option.width(3);
                     option.useGradient(true);
                     option.colorValues(colors);
                     option.geodesic(true);
@@ -194,6 +196,19 @@ public class MainActivity extends AppCompatActivity {
                 if(newsDetail.isShown()){
                     newsDetail.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        //设置地图缩放事件
+        aMap.setOnCameraChangeListener(new AMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition cameraPosition) {
+                newsEvents.onZoomChanged(cameraPosition.zoom);
+            }
+
+            @Override
+            public void onCameraChangeFinish(CameraPosition cameraPosition) {
+
             }
         });
 

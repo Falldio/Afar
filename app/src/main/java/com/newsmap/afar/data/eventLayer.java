@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.Text;
 
 import java.util.ArrayList;
@@ -12,16 +13,19 @@ import java.util.ArrayList;
 public class eventLayer {
     public ArrayList<news> internationalNews =new ArrayList<>();//国际要闻
     public ArrayList<news> domesticNews =new ArrayList<>();//国内新闻
-    public ArrayList<Marker> internationalMarkers=new ArrayList<>();
-    public ArrayList<Marker> domesticMarkers=new ArrayList<>();
+    public ArrayList<abstractNews> countries =new ArrayList<>();//抽象新闻符号
+    private ArrayList<Marker> internationalMarkers=new ArrayList<>();
+    private ArrayList<Marker> domesticMarkers=new ArrayList<>();
+    private ArrayList<Marker> countryMarkers=new ArrayList<>();
 
     public void addMarker(AMap aMap){
         if (internationalNews.size()!=0){
             for (news event : internationalNews) {
                 Marker marker=aMap.addMarker(event.getMarkerOptions());
                 event.setMarkerId(marker.getId());
-                Text text=aMap.addText(event.getTextOptions());
-                event.setTextId(text.getId());
+//                Text text=aMap.addText(event.getTextOptions());
+//                event.setTextId(text.getId());
+                marker.setVisible(false);
                 internationalMarkers.add(marker);
             }
         }else {
@@ -32,12 +36,22 @@ public class eventLayer {
             for (news event : domesticNews) {
                 Marker marker=aMap.addMarker(event.getMarkerOptions());
                 event.setMarkerId(marker.getId());
-                Text text=aMap.addText(event.getTextOptions());
-                event.setTextId(text.getId());
+//                Text text=aMap.addText(event.getTextOptions());
+//                event.setTextId(text.getId());
                 domesticMarkers.add(marker);
             }
         }else {
             Log.e("TAG", "addMarker: 国内新闻为空");
+        }
+        if (countries.size()!=0){
+            for(abstractNews event:countries){
+                Marker marker=aMap.addMarker(new MarkerOptions()
+                        .position(event.getCoordinate()));
+                marker.setVisible(false);
+                countryMarkers.add(marker);
+            }
+        }else {
+            Log.e("TAG", "addMarker: 抽象新闻为空");
         }
     }
 
@@ -78,15 +92,41 @@ public class eventLayer {
         return events;
     }
 
-    public void setInternationalVisible(boolean visible){
+    private void setInternationalVisible(boolean visible){
+        if (internationalMarkers.get(0).isVisible()==visible)   return;
         for (Marker marker:internationalMarkers){
             marker.setVisible(visible);
         }
     }
 
-    public void setDomesticVisible(boolean visible){
+    private void setDomesticVisible(boolean visible){
+        if (domesticMarkers.get(0).isVisible()==visible)    return;
         for (Marker marker:domesticMarkers){
             marker.setVisible(visible);
+        }
+    }
+
+    private void setCountriesVisible(boolean visible){
+        if(countryMarkers.get(0).isVisible()==visible)  return;
+        for (Marker marker:countryMarkers){
+            marker.setVisible(visible);
+        }
+    }
+
+    public void onZoomChanged(float zoom){
+        //zoom越大，比例尺越大，3-17
+        if (zoom>=3&&zoom<=8){
+            setCountriesVisible(true);
+            setDomesticVisible(false);
+            setInternationalVisible(false);
+        }else if(zoom>=9&&zoom<=13){
+            setCountriesVisible(false);
+            setDomesticVisible(false);
+            setInternationalVisible(true);
+        }else if(zoom>=14&&zoom<=17){
+            setCountriesVisible(false);
+            setDomesticVisible(true);
+            setInternationalVisible(false);
         }
     }
 }
