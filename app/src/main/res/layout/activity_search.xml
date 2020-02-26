@@ -30,7 +30,12 @@
             android:hint="@string/searchHint"
             android:imeOptions="actionSearch"
             android:inputType="text"
+            android:paddingStart="7dp"
+            android:paddingEnd="5dp"
             android:textColor="@android:color/black"
+            android:textColorHighlight="@color/colorPrimary"
+            android:textColorLink="@color/colorPrimary"
+            android:textCursorDrawable="@drawable/text_cursor_material"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -42,14 +47,19 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/searchBarCard">
+        app:layout_constraintTop_toBottomOf="@id/searchBarCard"
+        tools:layout_editor_absoluteX="0dp">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:tabSelectedTextColor="@color/mainTheme"
-            app:tabTextColor="@color/mainTheme">
+            app:tabIndicatorColor="@color/locationMark_blue"
+            app:tabIndicatorHeight="1.2dp"
+            app:tabPaddingEnd="2dp"
+            app:tabPaddingStart="0dp"
+            app:tabSelectedTextColor="@color/colorPrimaryDark"
+            app:tabTextColor="@color/colorPrimary">
         </com.google.android.material.tabs.TabLayout>
 
     </com.newsmap.afar.search.tabViewPager>

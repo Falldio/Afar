@@ -12,5 +12,6 @@
     <color name="fontColor_searchBar_grey">#A19D9D</color>
     <color name="newsList_card_grey">#FFECECEC</color>
     <color name="black_overlay">#66000000</color>
+    <color name="locationMark_blue">#1295DA</color>
 
 </resources>

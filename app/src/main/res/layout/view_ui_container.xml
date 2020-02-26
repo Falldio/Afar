@@ -20,6 +20,7 @@
         android:layout_marginTop="@dimen/status_bar_height">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/text_edit"
@@ -29,7 +30,7 @@
             tools:layout_editor_absoluteY="5dp">
 
             <TextView
-                android:id="@+id/searchBar"
+                android:id="@+id/searchBarText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
