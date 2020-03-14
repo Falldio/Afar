@@ -87,8 +87,10 @@ public class eventLayer {
 
     public ArrayList<news> getAllNews(){
         ArrayList<news> events=new ArrayList<>();
-        events.addAll(domesticNews);
-        events.addAll(internationalNews);
+        if(domesticNews.size()>0)
+            events.addAll(domesticNews);
+        if(internationalNews.size()>0)
+            events.addAll(internationalNews);
         return events;
     }
 
