@@ -173,8 +173,8 @@ public class MainActivity extends AppCompatActivity {
                     option.add(event.getLocation());
                     option.add(newsEvents.findNewsById(i).getLocation());
                     List<Integer>colors=new ArrayList<>();
-                    colors.add(Color.argb(255,255,0,0));
-                    colors.add(Color.argb(255,0,255,0));
+                    colors.add(Color.argb(248,164,158,0));
+                    colors.add(Color.argb(242,236,146,0));
                     option.width(3);
                     option.useGradient(true);
                     option.colorValues(colors);

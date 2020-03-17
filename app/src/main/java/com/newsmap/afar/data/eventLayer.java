@@ -23,8 +23,6 @@ public class eventLayer {
             for (news event : internationalNews) {
                 Marker marker=aMap.addMarker(event.getMarkerOptions());
                 event.setMarkerId(marker.getId());
-//                Text text=aMap.addText(event.getTextOptions());
-//                event.setTextId(text.getId());
                 marker.setVisible(false);
                 internationalMarkers.add(marker);
             }
@@ -36,8 +34,7 @@ public class eventLayer {
             for (news event : domesticNews) {
                 Marker marker=aMap.addMarker(event.getMarkerOptions());
                 event.setMarkerId(marker.getId());
-//                Text text=aMap.addText(event.getTextOptions());
-//                event.setTextId(text.getId());
+                marker.setVisible(false);
                 domesticMarkers.add(marker);
             }
         }else {
@@ -117,18 +114,18 @@ public class eventLayer {
 
     public void onZoomChanged(float zoom){
         //zoom越大，比例尺越大，3-17
-        if (zoom>=3&&zoom<=8){
+        if (zoom==3){
             setCountriesVisible(true);
             setDomesticVisible(false);
             setInternationalVisible(false);
-        }else if(zoom>=9&&zoom<=13){
+        }else if(zoom<=6){
             setCountriesVisible(false);
             setDomesticVisible(false);
             setInternationalVisible(true);
-        }else if(zoom>=14&&zoom<=17){
+        }else if(zoom<=17){
             setCountriesVisible(false);
             setDomesticVisible(true);
-            setInternationalVisible(false);
+            setInternationalVisible(true);
         }
     }
 }

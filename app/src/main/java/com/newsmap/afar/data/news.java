@@ -16,15 +16,15 @@ import java.util.ArrayList;
 
 //将数据库中获取的新闻数据存放到news类中
 public class news implements Parcelable {
-    private String markerId;//对应marker的索引值
-    private String textId;//对应text的索引值
-    private LatLng location;//位置
-    private String category;//分类
-    private String content;//文章
-    private String url;//网址
-    private String source;//来源
-    private String title;//标题
-    private String date;//日期
+    private String markerId="";//对应marker的索引值
+    private String textId="";//对应text的索引值
+    private LatLng location=null;//位置
+    private String category="";//分类
+    private String content="";//文章
+    private String url="";//网址
+    private String source="";//来源
+    private String title="";//标题
+    private String date="";//日期
     private BitmapDescriptor icon;
     private MarkerOptions markerOptions;
     private TextOptions textOptions;

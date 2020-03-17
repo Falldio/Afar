@@ -53,11 +53,6 @@ public class newsLinker{
         Statement statement;
         ResultSet result;
         String queryNews = "SELECT * FROM news";
-        ArrayList<abstractNews> countries=new ArrayList<>();
-        abstractNews china=new abstractNews();//必然存在国内新闻
-        china.setLocation("中国");
-        china.setCoordinate(new LatLng(39.55,116.2));
-        countries.add(china);
 
         try{
             statement=connection.createStatement();
@@ -94,29 +89,33 @@ public class newsLinker{
                     if (event.getCategory().equals("国际要闻")) {
                         layer.internationalNews.add(event);
 
-//                        String location=result.getString("location");
-//                        for (int i=0;i<countries.size();i++) {
-//                            abstractNews country=countries.get(i);
-//                            if (country.getLocation().equals(location)) {
-//                                country.addCount();
-//                                break;
-//                            } else {
-//                                abstractNews news = new abstractNews();
-//                                news.setLocation(location);
-//                                news.setCoordinate(new LatLng(lat, lon));
-//                                news.addCount();
-//                                countries.add(news);
-//                            }
-//                        }
 
                     }else if (event.getCategory().equals("国内新闻")){
                         layer.domesticNews.add(event);
-                        china.addCount();
+//                        china.addCount();
                     }
                 }
             }
-            layer.countries=countries;
             result.close();
+
+            String queryCountries="select latitude, longitude, location, count(location) as count from news " +
+                    "where category ='国际要闻' and flag=3 group by latitude, longitude, location";
+            ResultSet queryResult;
+            ArrayList<abstractNews> countries=new ArrayList<>();
+            statement=connection.createStatement();
+            queryResult=statement.executeQuery(queryCountries);
+            queryResult.beforeFirst();
+            while (queryResult.next()){
+                abstractNews country=new abstractNews();
+                country.setLocation(queryResult.getString("location"));
+                country.setCount(queryResult.getInt("count"));
+                double lat=queryResult.getDouble("latitude");
+                double lon=queryResult.getDouble("longitude");
+                country.setCoordinate(new LatLng(lat,lon));
+                countries.add(country);
+            }
+            queryResult.close();
+            layer.countries=countries;
         } catch (SQLException e) {
             e.printStackTrace();
         }

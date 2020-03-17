@@ -36,7 +36,7 @@ public class abstractNews {
         }
     }
 
-    public void addCount(){
-        count++;
+    public void setCount(int count){
+        this.count=count;
     }
 }
