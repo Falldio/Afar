@@ -7,7 +7,7 @@
     <color name="transparent">#00000000</color>
     <color name="newsTitle">#070707</color>
     <color name="newsContent">#292929</color>
-    <color name="grey">#ebe6e6</color>
+    <color name="grey">#EBEBEB</color>
     <color name="mainTheme">#00afb3</color>
     <color name="fontColor_searchBar_grey">#A19D9D</color>
     <color name="newsList_card_grey">#FFECECEC</color>

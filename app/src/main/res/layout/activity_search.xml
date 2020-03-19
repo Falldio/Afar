@@ -4,20 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/grey"
     tools:context=".SearchActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/searchBarCard"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/transparent"
+        android:layout_height="73dp"
+        android:background="@color/white"
         android:paddingStart="@dimen/search_bar_margin"
-        android:paddingTop="@dimen/card_margin"
+        android:paddingTop="30dp"
         android:paddingEnd="@dimen/search_bar_margin"
         android:paddingBottom="@dimen/card_margin"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/status_bar_height">
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/searchBarInput"
@@ -34,6 +33,7 @@
             android:paddingEnd="5dp"
             android:textColor="@android:color/black"
             android:textColorHighlight="@color/colorPrimary"
+            android:textColorHint="@color/fontColor_searchBar_grey"
             android:textColorLink="@color/colorPrimary"
             android:textCursorDrawable="@drawable/text_cursor_material"
             android:textSize="16sp"
@@ -54,13 +54,13 @@
             android:id="@+id/tabLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/locationMark_blue"
+            app:tabBackground="@color/white"
+            app:tabIndicatorColor="@color/colorPrimary"
             app:tabIndicatorHeight="1.2dp"
             app:tabPaddingEnd="2dp"
             app:tabPaddingStart="0dp"
-            app:tabSelectedTextColor="@color/colorPrimaryDark"
-            app:tabTextColor="@color/colorPrimary">
-        </com.google.android.material.tabs.TabLayout>
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/fontColor_searchBar_grey"/>
 
     </com.newsmap.afar.search.tabViewPager>
 

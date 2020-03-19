@@ -24,8 +24,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:background="@drawable/rounded_card"
-            app:layout_constraintTop_toTopOf="parent"
-            android:padding="@dimen/text_margin">
+            android:paddingLeft="@dimen/text_margin"
+            android:paddingTop="15dp"
+            android:paddingRight="@dimen/text_margin"
+            android:paddingBottom="0dp"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/newsTitle"
