@@ -15,8 +15,11 @@ import android.widget.TextView;
 import android.text.Html;
 import android.view.WindowManager;
 import android.view.Window;
+import android.widget.Toast;
 
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions.LineJoinType;
 
@@ -85,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         initView();
         //设置事件监听
         setListener();
+        //提示消息
+        Toast.makeText(this,"远道不可思，夙昔梦见之。",Toast.LENGTH_LONG).show();
     }
 
 
@@ -113,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         uiSettings.setTiltGesturesEnabled(false);
         uiSettings.setLogoBottomMargin(-200);
 
+        aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(39,115),3));
 
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMapView.onCreate(savedInstanceState);
@@ -178,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                     option.width(3);
                     option.useGradient(true);
                     option.colorValues(colors);
-                    option.geodesic(true);
+                    option.geodesic(false);
                     option.lineJoinType(LineJoinType.LineJoinRound);
                     relativeLines.add(aMap.addPolyline(option));
                 }

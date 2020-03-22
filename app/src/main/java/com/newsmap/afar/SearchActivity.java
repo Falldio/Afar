@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.newsmap.afar.data.news;
@@ -134,5 +135,7 @@ public class SearchActivity extends FragmentActivity{
         else{
             Log.e("TAG", "onCreate: 传入数据为空");
         }
+        if(newsEvents!=null&&newsEvents.size()==0)
+            Toast.makeText(this,"蜉蝣天地，沧海一粟。",Toast.LENGTH_LONG).show();
     }
 }
