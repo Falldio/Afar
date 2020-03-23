@@ -43,6 +43,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.newsmap.afar.data.news;
 import com.newsmap.afar.server.newsLinker;
 import com.newsmap.afar.data.eventLayer;
+import com.newsmap.afar.view.infoWindowAdapter;
 
 import static android.text.Html.FROM_HTML_MODE_COMPACT;
 
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private NestedScrollView readPage;
     private CustomMapStyleOptions opt = new CustomMapStyleOptions();//自定义地图样式
     private ArrayList<Polyline>relativeLines=new ArrayList<>();//相关新闻飞线
+    private infoWindowAdapter windowAdapter=new infoWindowAdapter();
 
 
 
@@ -122,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
 
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMapView.onCreate(savedInstanceState);
-
     }
 
     //初始化新闻数据
@@ -137,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("TAG","initData: 数据库为空");
                 }
                 newsEvents.addMarker(aMap);
+                aMap.setInfoWindowAdapter(windowAdapter);
             }
         }.start();
     }
@@ -161,11 +163,10 @@ public class MainActivity extends AppCompatActivity {
         aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener(){
             @Override
             public boolean onMarkerClick(Marker marker) {
-                newsDetail.setVisibility(View.VISIBLE);
-                bottomSheetBehavior.setPeekHeight(newsTitleCard.getHeight());
-
+                marker.showInfoWindow();
                 news event=newsEvents.findNewsByMarkerId(marker.getId());
                 newsTitle.setText(event.getTitle());
+                bottomSheetBehavior.setPeekHeight(newsTitleCard.getHeight());
                 newsContent.setText(Html.fromHtml(event.getContent(),FROM_HTML_MODE_COMPACT));
 
                 //相关新闻飞线生成
@@ -189,7 +190,8 @@ public class MainActivity extends AppCompatActivity {
                     relativeLines.add(aMap.addPolyline(option));
                 }
 
-                bottomSheetBehavior.setPeekHeight(newsTitleCard.getHeight());
+                newsDetail.setVisibility(View.VISIBLE);
+
                 readPage.scrollTo(0,0);
                 return true;
             }
@@ -202,6 +204,16 @@ public class MainActivity extends AppCompatActivity {
                 if(newsDetail.isShown()){
                     newsDetail.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                for (Polyline line:relativeLines){
+                    line.remove();
+                }
+                relativeLines.clear();
             }
         });
 

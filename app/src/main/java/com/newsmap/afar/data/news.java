@@ -37,7 +37,7 @@ public class news implements Parcelable {
      public news(){
         markerOptions=new MarkerOptions();
         textOptions=new TextOptions();
-        markerOptions.infoWindowEnable(false);
+        markerOptions.infoWindowEnable(true);
         markerOptions.title(title);
         textOptions.backgroundColor(0);
         textOptions.fontSize(50);
