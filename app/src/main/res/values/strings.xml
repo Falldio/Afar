@@ -5,6 +5,7 @@
     <string name="searchHint">我从远方赶来，恰好你们也在。</string>
     <string name="tabText">文本</string>
     <string name="tabMap">地图</string>
+    <string name="splashDescription">远方</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

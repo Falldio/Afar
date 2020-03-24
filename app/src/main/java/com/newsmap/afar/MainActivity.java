@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -90,8 +91,7 @@ public class MainActivity extends AppCompatActivity {
         initView();
         //设置事件监听
         setListener();
-        //提示消息
-        Toast.makeText(this,"远道不可思，夙昔梦见之。",Toast.LENGTH_LONG).show();
+
     }
 
 
@@ -128,8 +128,10 @@ public class MainActivity extends AppCompatActivity {
 
     //初始化新闻数据
     private void initData(){
+        Toast.makeText(this,"远道不可思，夙昔梦见之。",Toast.LENGTH_LONG).show();
         new Thread(){
             public void run(){
+                //提示消息
                 if(!connection.connectToServer()) {
                     Log.e("TAG", "initData: 数据库连接失败" );
                     return;
