@@ -6,6 +6,6 @@
             android:bottomRightRadius="@dimen/rounded_rec_angle_SearchBar"
             android:topLeftRadius="@dimen/rounded_rec_angle_SearchBar"
             android:topRightRadius="@dimen/rounded_rec_angle_SearchBar" />
-        <stroke android:color="#F4F4F4" android:width="0dp"/>
-        <solid android:color="@color/newsList_card_grey" />
+    <stroke android:color="#F4F4F4" android:width="0dp"/>
+    <solid android:color="@color/newsList_card_grey" />
     </shape>
