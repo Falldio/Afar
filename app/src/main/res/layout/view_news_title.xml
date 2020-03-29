@@ -25,7 +25,6 @@
         android:background="@drawable/title_container"
         android:gravity="center|top"
         android:includeFontPadding="false"
-        android:maxLines="4"
         android:paddingVertical="0dp"
         android:paddingLeft="5dp"
         android:paddingTop="5dp"
