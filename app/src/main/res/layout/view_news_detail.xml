@@ -33,12 +33,15 @@
             <TextView
                 android:id="@+id/newsTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
+                android:autoSizeMaxTextSize="20sp"
+                android:autoSizeMinTextSize="16sp"
                 android:text="@string/newsTitle"
                 android:textColor="@color/newsTitle"
                 android:textSize="@dimen/news_title_size"
                 android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="6dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
