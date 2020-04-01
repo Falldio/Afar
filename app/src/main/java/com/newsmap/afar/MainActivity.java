@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener(){
             @Override
             public boolean onMarkerClick(Marker marker) {
-                marker.showInfoWindow();
+//                marker.showInfoWindow();
                 news event=newsEvents.findNewsByMarkerId(marker.getId());
                 newsTitle.setText(event.getTitle());
                 bottomSheetBehavior.setPeekHeight(newsTitleCard.getHeight());

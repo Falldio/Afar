@@ -271,4 +271,8 @@ public class news implements Parcelable {
     public void restore(){
         relativity=0;
     }
+
+    public BitmapDescriptor getIcon(){
+        return icon;
+    }
 }

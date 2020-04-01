@@ -92,7 +92,6 @@ public class newsLinker{
 
                     }else if (event.getCategory().equals("国内新闻")){
                         layer.domesticNews.add(event);
-//                        china.addCount();
                     }
                 }
             }

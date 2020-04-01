@@ -1,12 +1,19 @@
 package com.newsmap.afar.data;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.animation.Animation;
 import com.amap.api.maps.model.animation.AlphaAnimation;
+import com.newsmap.afar.MainApplication;
+import com.newsmap.afar.R;
 
 import java.util.ArrayList;
 
@@ -19,12 +26,10 @@ public class eventLayer {
     private ArrayList<Marker> domesticMarkers=new ArrayList<>();
     private ArrayList<Marker> countryMarkers=new ArrayList<>();
     private AlphaAnimation show=new AlphaAnimation(0,1);
-//    private AlphaAnimation hide=new AlphaAnimation(1,0);
     private float preZoom=3;//缩放前比例尺
 
     public eventLayer(){
         show.setDuration(1000);
-//        hide.setDuration(1000);
     }
     public void addMarker(AMap aMap){
         if (internationalNews.size()!=0){
@@ -127,14 +132,6 @@ public class eventLayer {
         }
     }
 
-    private void setInfoWindowVisible(ArrayList<Marker> markers,boolean visible){
-        for(Marker marker:markers){
-            if (visible)
-                marker.showInfoWindow();
-            else marker.hideInfoWindow();
-        }
-    }
-
     public void onZoomChanged(float zoom){
         //zoom越大，比例尺越大，3-17
         if (zoom==3){
@@ -154,13 +151,6 @@ public class eventLayer {
         }else if(zoom<=17){
             if(preZoom<=6){
                 setAnimation(domesticMarkers,show);
-            }
-            if (zoom>=13){
-                setInfoWindowVisible(domesticMarkers,true);
-                setInfoWindowVisible(internationalMarkers,true);
-            }else if(zoom<13){
-                setInfoWindowVisible(domesticMarkers,false);
-                setInfoWindowVisible(internationalMarkers,false);
             }
             setCountriesVisible(false);
             setDomesticVisible(true);
